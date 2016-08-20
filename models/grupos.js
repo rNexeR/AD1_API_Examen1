@@ -1,9 +1,9 @@
 var connection = require('../connection');
 
-function users() {
+function groups() {
     this.get = function (res) {
         connection.acquire(function(err, con){
-            con.query('select * from usuarios', function (err, result) {
+            con.query('select * from grupos', function (err, result) {
                 con.release();
                 if(err)
                     res.json(500, {Error: err});
@@ -13,45 +13,45 @@ function users() {
         });
     };
 
-    this.create = function (user, res) {
+    this.create = function (group, res) {
         connection.acquire(function (err, con) {
-            con.query('insert into usuarios set ?', user, function (err, result) {
+            con.query('insert into grupos set ?', group, function (err, result) {
                 con.release();
                 if(err)
-                    res.json(500, {Message: 'Creacion de Usuario fallida'});
+                    res.json(500, {Message: 'Creacion de Grupo fallida'});
                 else    
-                    res.json(200, {Message: 'Creacion de Usuario exitosa'});
+                    res.json(200, {Message: 'Creacion de Grupo exitosa'});
             });
         });
     };
 
-    this.update = function (user, res) {
+    this.update = function (group, res) {
         connection.acquire(function (err, con) {
-            con.query('update usuarios set ? where id_usuario = ?', [user, user.id_usuario], function (err, result) {
+            con.query('update grupos set ? where id_grupo = ?', [group, group.id_Grupo], function (err, result) {
                 con.release();
                 if(err)
-                    res.json(500, {Message: 'Actualizacion de Usuario fallida'});
+                    res.json(500, {Message: 'Actualizacion de Grupo fallida'});
                 else
-                    res.json(200, {Message: 'Actualizacion de Usuario exitosa'});
+                    res.json(200, {Message: 'Actualizacion de Grupo exitosa'});
             });
         });
     }
 
     this.delete = function (id, res) {
         connection.acquire(function (err, con) {
-            con.query('delete from usuarioswhere id_usuario = ?', id, function (err, result) {
+            con.query('delete from grupos where id_grupo = ?', id, function (err, result) {
                 con.release();
                 if(err)
-                    res.json(500, {Message: 'Eliminacion de Usuario fallida'});
+                    res.json(500, {Message: 'Eliminacion de Grupo fallida'});
                 else
-                    res.json(200, {Message: 'Eliminacion de Usuario exitosa'});
+                    res.json(200, {Message: 'Eliminacion de Grupo exitosa'});
             });
         });
     }
 
     this.getOne = function (id, res) {
         connection.acquire(function(err, con){
-            con.query('select * from usuarios where id_usuario = ?', id, function (err, result) {
+            con.query('select * from grupos where id_grupo = ?', id, function (err, result) {
                 con.release();
                 if(err)
                     res.json(500, {Error: err});
@@ -62,4 +62,4 @@ function users() {
     };
 }
 
-module.exports = new users();
+module.exports = new groups();

@@ -6,7 +6,8 @@ var express = require('express')
   , index = require('./routes')
   , http = require('http')
   , connection = require('./connection')
-  , routes = require('./routes/routes')
+  , users_routes = require('./routes/users_routes')
+  , groups_routes = require('./routes/groups_routes')
   , cors = require('cors');
 
 var app = express();
@@ -41,7 +42,8 @@ app.configure('development', function(){
 app.options('*', cors());
 
 connection.init();
-routes.configure(app);
+users_routes.configure(app);
+groups_routes.configure(app);
 
 app.get('/', index.index);
 
