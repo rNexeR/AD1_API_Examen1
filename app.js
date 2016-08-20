@@ -5,9 +5,20 @@
 var express = require('express')
   , routes = require('./routes')
   , http = require('http')
-  , cors = require('cors');
+  , cors = require('cors')
+  , orm = require('orm');
 
 var app = express();
+
+app.use(cors());
+
+app.use(orm.express("mysql://root:Password123!!@/ad1_exa1", {
+    define: function (db, models) {
+        models.person = db.define("person", {
+
+        });
+    }
+}));
 
 app.configure(function(){
   app.set('port', process.env.PORT || 8000);
@@ -25,12 +36,9 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-app.use(cors());
-
-
 app.options('*', cors());
 
-app.get('/', cors(), routes.index);
+app.get('/', routes.index);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port %s in %s mode.",  app.get('port'), app.settings.env);
