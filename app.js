@@ -8,6 +8,8 @@ var express = require('express')
   , connection = require('./connection')
   , users_routes = require('./routes/users_routes')
   , groups_routes = require('./routes/groups_routes')
+  , activities_routes = require('./routes/activities_routes')
+  , evaluations_routes = require('./routes/evaluations_routes')
   , cors = require('cors');
 
 var app = express();
@@ -44,6 +46,8 @@ app.options('*', cors());
 connection.init();
 users_routes.configure(app);
 groups_routes.configure(app);
+activities_routes.configure(app);
+evaluations_routes.configure(app);
 
 app.get('/', index.index);
 
