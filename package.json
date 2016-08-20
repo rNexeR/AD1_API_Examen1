@@ -6,10 +6,11 @@
     "start": "node app"
   },
   "dependencies": {
+    "body-parser": "^1.15.2",
     "cors": "^2.7.1",
-    "express": "3.0.0beta4",
+    "express": "^4.13.3",
     "jade": "*",
-    "sequelize": "^3.24.1"
+    "mysql": "^2.9.0"
   },
   "author": "Malware Team"
 }

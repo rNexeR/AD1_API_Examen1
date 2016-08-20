@@ -1,17 +1,66 @@
-var Sequelize = require('sequelize');
-var sequelize = new Sequelize('ad1_exa1', 'root', 'Password123!!');
+var connection = require('../connection');
 
-var usuarios = sequelize.define("usuarios", {
-    id_usuario: Sequelize.STRING,
-    username: Sequelize.STRING,
-    nombre1: Sequelize.STRING,
-    nombre2: Sequelize.STRING,
-    apellido1: Sequelize.STRING,
-    apellido2: Sequelize.STRING,
-    tipo: Sequelize.STRING,
-    password: Sequelize.STRING
-  });
+function users() {
+    this.get = function (res) {
+        connection.acquire(function(err, con){
+            con.query('select * from usuarios', function (err, result) {
+                con.release();
+                if(err)
+                    res.json(500, {Error: err});
+                else
+                    res.json(200, result);
+            })
+        });
+    };
 
-module.exports = {
-    Usuarios: usuarios
-};
+    this.create = function (user, res) {
+        console.log("Me estoy llamando: " + user);
+        connection.acquire(function (err, con) {
+            con.query('insert into usuarios set ?', user, function (err, result) {
+                con.release();
+                if(err)
+                    res.json(500, {Message: 'Creacion de Usuario fallida'});
+                else    
+                    res.json(200, {Message: 'Creacion de Usuario exitosa'});
+            });
+        });
+    };
+
+    this.update = function (user, res) {
+        connection.acquire(function (err, con) {
+            con.query('update usuarios set ? where id_usuario = ?', [user, user.id_usuario], function (err, result) {
+                con.release();
+                if(err)
+                    res.json(500, {Message: 'Actualizacion de Usuario fallida'});
+                else
+                    res.json(200, {Message: 'Actualizacion de Usuario exitosa'});
+            });
+        });
+    }
+
+    this.delete = function (id, res) {
+        connection.acquire(function (err, con) {
+            con.query('delete from usuarioswhere id_usuario = ?', id, function (err, result) {
+                con.release();
+                if(err)
+                    res.json(500, {Message: 'Eliminacion de Usuario fallida'});
+                else
+                    res.json(200, {Message: 'Eliminacion de Usuario exitosa'});
+            });
+        });
+    }
+
+    this.getOne = function (id, res) {
+        connection.acquire(function(err, con){
+            con.query('select * from usuarios where id_usuario = ?', id, function (err, result) {
+                con.release();
+                if(err)
+                    res.json(500, {Error: err});
+                else
+                    res.json(200, result);
+            })
+        });
+    };
+}
+
+module.exports = new users();
