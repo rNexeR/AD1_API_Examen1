@@ -2,8 +2,6 @@
 
 
 ## Installation
- 
- Install mongodb, run via mongod.
 
 Then cd into the cloned directory and run: 
 
