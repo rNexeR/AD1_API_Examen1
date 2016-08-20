@@ -1,4 +1,4 @@
- Sample application that uses Node.js, Express 3 and MongoDB to create a JSON API. 
+ Node.js, Express 3 and MySL to create a JSON API. 
 
 
 ## Installation
