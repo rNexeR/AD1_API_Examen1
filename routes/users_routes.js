@@ -1,4 +1,5 @@
 var users = require('../models/usuarios');
+var crypto = require('crypto');
 
 module.exports = {
     configure: function (app) {
@@ -11,10 +12,12 @@ module.exports = {
         });
 
         app.post('/usuarios', function (req, res) {
+            req.body.password = crypto.createHmac('sha256', req.body.password).digest();
             users.create(req.body, res);
         });
 
         app.put('/usuarios', function (req, res) {
+            req.body.password = crypto.createHmac('sha256', req.body.password).digest();
             users.update(req.body, res);
         });
 
