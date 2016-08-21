@@ -39,9 +39,9 @@ function general() {
         });
     }
 
-    this.delete = function (table, id, res) {
+    this.delete = function (table, data, res) {
         connection.acquire(function (err, con) {
-            con.query('delete from ? where id_actividad = ?', [table,id], function (err, result) {
+            con.query('delete from' + table + 'where ?', [data], function (err, result) {
                 con.release();
                 if(err)
                     res.json(500, {Message: 'Eliminacion de ' + table +' fallida'});
