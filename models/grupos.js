@@ -49,9 +49,9 @@ function groups() {
         });
     }
 
-    this.getOne = function (data, res) {
+    this.getOne = function (id, res) {
         connection.acquire(function(err, con){
-            con.query('select * from grupos where id_grupo = ?', [data.id_Grupo], function (err, result) {
+            con.query('select * from grupos where id_grupo = ?', id, function (err, result) {
                 con.release();
                 if(err)
                     res.json(500, {Error: err});

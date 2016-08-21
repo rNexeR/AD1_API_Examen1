@@ -6,8 +6,8 @@ module.exports = {
             groupsActivities.get(res);
         });
 
-        app.get('/gruposActividades', function (req, res) {
-            groupsActivities.getOne(req.body, res);
+        app.get('/gruposActividades/:idG-idA', function (req, res) {
+            groupsActivities.getOne(req.params.idG, req.params.idA, res);
         });
 
         app.post('/gruposActividades', function (req, res) {

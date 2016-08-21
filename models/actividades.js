@@ -49,9 +49,9 @@ function activities() {
         });
     }
 
-    this.getOne = function (data, res) {
+    this.getOne = function (id, res) {
         connection.acquire(function(err, con){
-            con.query('select * from actividades where id_actividad = ?', [data.id_Actividad], function (err, result) {
+            con.query('select * from actividades where id_actividad = ?', id, function (err, result) {
                 con.release();
                 if(err)
                     res.json(500, {Error: err});

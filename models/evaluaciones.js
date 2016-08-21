@@ -49,9 +49,9 @@ function evaluations() {
         });
     }
 
-    this.getOne = function (data, res) {
+    this.getOne = function (id, res) {
         connection.acquire(function(err, con){
-            con.query('select * from evaluaciones where id_evaluacion = ?',  [data.id_Evaluacion], function (err, result) {
+            con.query('select * from evaluaciones where id_evaluacion = ?',  id, function (err, result) {
                 con.release();
                 if(err)
                     res.json(500, {Error: err});

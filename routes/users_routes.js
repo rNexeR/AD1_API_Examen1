@@ -7,8 +7,8 @@ module.exports = {
             users.get(res);
         });
 
-        app.get('/usuarios', function (req, res) {
-            users.getOne(req.body, res);
+        app.get('/usuarios/:id', function (req, res) {
+            users.getOne(req.params.id, res);
         });
 
         app.post('/usuarios', function (req, res) {
@@ -23,6 +23,10 @@ module.exports = {
 
         app.delete('/usuarios', function (req, res) {
             users.delete(req.body, res);
+        });
+
+        app.post('/login', function (req, res) {
+            users.validate(req.body, res);
         });
 
     }

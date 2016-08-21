@@ -6,8 +6,8 @@ module.exports = {
             groups.get(res);
         });
 
-        app.get('/grupos', function (req, res) {
-            groups.getOne(req.body, res);
+        app.get('/grupos/:id', function (req, res) {
+            groups.getOne(req.params.id, res);
         });
 
         app.post('/grupos', function (req, res) {

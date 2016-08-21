@@ -1,4 +1,8 @@
 var connection = require('../connection');
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/webTokens');
+var db = mongoose.connection;
+var crypto = require('crypto');
 
 function users() {
     this.get = function (res) {
@@ -50,14 +54,57 @@ function users() {
         });
     }
 
-    this.getOne = function (data, res) {
+    this.getOne = function (id, res) {
         connection.acquire(function(err, con){
-            con.query('select * from usuarios where id_usuario = ?', [data.id_usuario], function (err, result) {
+            con.query('select * from usuarios where id_usuario = ?', id, function (err, result) {
                 con.release();
                 if(err)
                     res.json(500, {Error: err});
                 else
                     res.json(200, result);
+            })
+        });
+    };
+
+    this.validate = function (data, res) {
+        connection.acquire(function(err, con){
+            con.query('select count(id_usuario) as user from usuarios where id_usuario = ? and password = ?', [data.id_usuario, data.password], function (err, result) {
+                con.release();
+                if(err)
+                    res.json(500, {Error: err});
+                else{
+                    //Token construction
+                    var today = new Date();
+                     var token = result.id_usuario + today;
+                     token = crypto.createHmac('sha256', token).digest();
+
+                     //mongoose connection attempt
+                     //On error Event
+                     db.on('error', console.error.bind(console, 'connection error:'));
+
+                     //If we successfully connect
+                     db.once('open', function() {
+
+                        var cryptoSchema = mongoose.Schema({
+                            name: String
+                        });
+
+                        var cryptoModel = mongoose.model('crypto', cryptoSchema);
+
+                        var newLog = new cryptoModel({ usuario: result.id_usuario, tipo: result.tipo,fecha: today, token: token });
+
+                        newLog.save(function (err) {
+
+                             if (err) 
+                                return console.error(err);
+                            else
+                                console.log("Success");
+                        });
+                        
+                     });
+
+                    res.json(200, token);
+                }
             })
         });
     };

@@ -51,9 +51,9 @@ function groupsActivities() {
         });
     }
 
-        this.getOne = function (data, res) {
+        this.getOne = function (idG, idA, res) {
         connection.acquire(function(err, con){
-            con.query('select * from grupos_actividades where id_grupo = ? and id_actividad = ?', [data.id_Grupo, data.id_Actividad], function (err, result) {
+            con.query('select * from grupos_actividades where id_grupo = ? and id_actividad = ?', [idG, idA], function (err, result) {
                 con.release();
                 if(err)
                     res.json(500, {Error: err});

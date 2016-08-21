@@ -6,8 +6,8 @@ module.exports = {
             evaluations.get(res);
         });
 
-        app.get('/evaluaciones', function (req, res) {
-            evaluations.getOne(req.body, res);
+        app.get('/evaluaciones/:id', function (req, res) {
+            evaluations.getOne(req.params.id, res);
         });
 
         app.post('/evaluaciones', function (req, res) {
