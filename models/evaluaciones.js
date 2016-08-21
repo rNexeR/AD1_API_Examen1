@@ -37,9 +37,9 @@ function evaluations() {
         });
     }
 
-    this.delete = function (id, res) {
+    this.delete = function (data, res) {
         connection.acquire(function (err, con) {
-            con.query('delete from evaluaciones where id_evaluacion = ?', id, function (err, result) {
+            con.query('delete from evaluaciones where id_evaluacion = ?', [data.id_Evaluacion], function (err, result) {
                 con.release();
                 if(err)
                     res.json(500, {Message: 'Eliminacion de Evaluacion fallida'});
@@ -49,9 +49,9 @@ function evaluations() {
         });
     }
 
-    this.getOne = function (id, res) {
+    this.getOne = function (data, res) {
         connection.acquire(function(err, con){
-            con.query('select * from evaluaciones where id_evaluacion = ?', id, function (err, result) {
+            con.query('select * from evaluaciones where id_evaluacion = ?',  [data.id_Evaluacion], function (err, result) {
                 con.release();
                 if(err)
                     res.json(500, {Error: err});

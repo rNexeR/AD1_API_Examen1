@@ -37,9 +37,9 @@ function activities() {
         });
     }
 
-    this.delete = function (id, res) {
+    this.delete = function (data, res) {
         connection.acquire(function (err, con) {
-            con.query('delete from actividades where id_actividad = ?', id, function (err, result) {
+            con.query('delete from actividades where id_actividad = ?', [data.id_Actividad], function (err, result) {
                 con.release();
                 if(err)
                     res.json(500, {Message: 'Eliminacion de Actividad fallida'});
@@ -49,9 +49,9 @@ function activities() {
         });
     }
 
-    this.getOne = function (id, res) {
+    this.getOne = function (data, res) {
         connection.acquire(function(err, con){
-            con.query('select * from actividades where id_actividad = ?', id, function (err, result) {
+            con.query('select * from actividades where id_actividad = ?', [data.id_Actividad], function (err, result) {
                 con.release();
                 if(err)
                     res.json(500, {Error: err});

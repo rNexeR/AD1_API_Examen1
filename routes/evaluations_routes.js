@@ -6,8 +6,8 @@ module.exports = {
             evaluations.get(res);
         });
 
-        app.get('/evaluaciones/:id', function (req, res) {
-            evaluations.getOne(req.params.id, res);
+        app.get('/evaluaciones', function (req, res) {
+            evaluations.getOne(req.body, res);
         });
 
         app.post('/evaluaciones', function (req, res) {
@@ -18,8 +18,8 @@ module.exports = {
             evaluations.update(req.body, res);
         });
 
-        app.delete('/evaluaciones/:id', function (req, res) {
-            evaluations.delete(req.params.id, res);
+        app.delete('/evaluaciones', function (req, res) {
+            evaluations.delete(req.body, res);
         });
 
     }

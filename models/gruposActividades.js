@@ -2,6 +2,31 @@ var connection = require('../connection');
 
 function groupsActivities() {
 
+        this.get = function (res) {
+        connection.acquire(function(err, con){
+            con.query('select * from grupos_actividades', function (err, result) {
+                con.release();
+                if(err)
+                    res.json(500, {Error: err});
+                else
+                    res.json(200, result);
+            })
+        });
+    };
+
+    this.create = function (activity, res) {
+        connection.acquire(function (err, con) {
+            con.query('insert into grupos_actividades set ?', activity, function (err, result) {
+                console.log(activity);
+                con.release();
+                if(err)
+                    res.json(500, {Message: 'Creacion de Actividad fallida'});
+                else    
+                    res.json(200, {Message: 'Creacion de Actividad exitosa'});
+            });
+        });
+    };
+
     this.update = function (data, res) {
         connection.acquire(function (err, con) {
             con.query('update grupos_actividades set ? where id_grupo = ?', [data, data.id_Grupo], function (err, result) {
@@ -14,9 +39,9 @@ function groupsActivities() {
         });
     }
 
-    this.delete = function (id, res) {
+    this.delete = function (data, res) {
         connection.acquire(function (err, con) {
-            con.query('delete from grupos_actividades where id_grupo = ?', id, function (err, result) {
+            con.query('delete from grupos_actividades where id_grupo = ? and id_actividad = ?', [data.id_Grupo, data.id_Actividad], function (err, result) {
                 con.release();
                 if(err)
                     res.json(500, {Message: 'Eliminacion de actividad fallida'});
@@ -25,6 +50,18 @@ function groupsActivities() {
             });
         });
     }
+
+        this.getOne = function (data, res) {
+        connection.acquire(function(err, con){
+            con.query('select * from grupos_actividades where id_grupo = ? and id_actividad = ?', [data.id_Grupo, data.id_Actividad], function (err, result) {
+                con.release();
+                if(err)
+                    res.json(500, {Error: err});
+                else
+                    res.json(200, result);
+            })
+        });
+    };
 }
 
 module.exports = new groupsActivities();

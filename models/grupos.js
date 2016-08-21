@@ -37,9 +37,9 @@ function groups() {
         });
     }
 
-    this.delete = function (id, res) {
+    this.delete = function (data, res) {
         connection.acquire(function (err, con) {
-            con.query('delete from grupos where id_grupo = ?', id, function (err, result) {
+            con.query('delete from grupos where id_grupo = ?', [data.id_Grupo], function (err, result) {
                 con.release();
                 if(err)
                     res.json(500, {Message: 'Eliminacion de Grupo fallida'});
@@ -49,9 +49,9 @@ function groups() {
         });
     }
 
-    this.getOne = function (id, res) {
+    this.getOne = function (data, res) {
         connection.acquire(function(err, con){
-            con.query('select * from grupos where id_grupo = ?', id, function (err, result) {
+            con.query('select * from grupos where id_grupo = ?', [data.id_Grupo], function (err, result) {
                 con.release();
                 if(err)
                     res.json(500, {Error: err});

@@ -6,8 +6,8 @@ module.exports = {
             users.get(res);
         });
 
-        app.get('/usuarios/:id', function (req, res) {
-            users.getOne(req.params.id, res);
+        app.get('/usuarios', function (req, res) {
+            users.getOne(req.body, res);
         });
 
         app.post('/usuarios', function (req, res) {
@@ -18,8 +18,8 @@ module.exports = {
             users.update(req.body, res);
         });
 
-        app.delete('/usuarios/:id', function (req, res) {
-            users.delete(req.params.id, res);
+        app.delete('/usuarios', function (req, res) {
+            users.delete(req.body, res);
         });
 
     }
