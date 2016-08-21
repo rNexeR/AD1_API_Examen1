@@ -3,7 +3,7 @@ var mongoose = require('mongoose')
 
 var tokensSchema = new Schema({
     user          : { type: String, required: true, trim: true, index: { unique: true } }
-  , password   : { type: String, required: true, trim: true }
+  , tipo   : { type: String, required: true, trim: true }
   , date_created  : { type: Date, required: true, default: Date.now }
   , token : {type: String, required: true, trim: true }
 });
