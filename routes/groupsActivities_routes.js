@@ -1,4 +1,5 @@
 var groupsActivities = require('../models/general');
+var groupsActivities = require('../models/gruposActividades');
 
 module.exports = {
     configure: function (app) {
@@ -18,9 +19,9 @@ module.exports = {
             groupsActivities.update('grupos_actividades', req.body, res);
         });
 
-        // app.delete('/gruposActividades/:id', function (req, res) {
-        //     groupsActivities.delete('grupos_actividades', req.params.id, res);
-        // });
+        app.delete('/gruposActividades/:id', function (req, res) {
+            groupsActivities.delete('grupos_actividades', req.params.id, res);
+        });
 
     }
 };

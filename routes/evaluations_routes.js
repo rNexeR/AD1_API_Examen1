@@ -1,4 +1,5 @@
 var evaluations = require('../models/general');
+var evaluationsDel = require('../models/evaluaciones');
 
 module.exports = {
     configure: function (app) {
@@ -15,11 +16,11 @@ module.exports = {
         });
 
         app.put('/evaluaciones', function (req, res) {
-            evaluations.update('evaluaciones', req.body, res);
+            evaluationsDel.update('evaluaciones', req.body, res);
         });
 
         app.delete('/evaluaciones/:id', function (req, res) {
-            evaluations.delete('evaluaciones', req.params.id, res);
+            evaluationsDel.delete('evaluaciones', req.params.id, res);
         });
 
     }

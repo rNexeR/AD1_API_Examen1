@@ -1,4 +1,5 @@
 var groups = require('../models/general');
+var groupsDel = require('../models/grupos');
 
 module.exports = {
     configure: function (app) {
@@ -15,11 +16,11 @@ module.exports = {
         });
 
         app.put('/grupos', function (req, res) {
-            groups.update('grupos', req.body, res);
+            groupsDel.update('grupos', req.body, res);
         });
 
         app.delete('/grupos', function (req, res) {
-            groups.delete('grupos', req.body, res);
+            groupsDel.delete('grupos', req.body, res);
         });
 
     }

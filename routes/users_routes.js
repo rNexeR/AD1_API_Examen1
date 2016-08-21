@@ -1,4 +1,5 @@
 var users = require('../models/general');
+var usersDel = require('../models/usuarios');
 
 module.exports = {
     configure: function (app) {
@@ -15,11 +16,11 @@ module.exports = {
         });
 
         app.put('/usuarios', function (req, res) {
-            users.update('usuarios', req.body, res);
+            usersDel.update('usuarios', req.body, res);
         });
 
         app.delete('/usuarios/:id', function (req, res) {
-            users.delete('usuarios', req.params.id, res);
+            usersDel.delete('usuarios', req.params.id, res);
         });
 
     }

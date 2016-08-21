@@ -1,4 +1,5 @@
 var activities = require('../models/general');
+var activitiesDel = require('../models/actividades');
 
 module.exports = {
     configure: function (app) {
@@ -15,11 +16,11 @@ module.exports = {
         });
 
         app.put('/actividades', function (req, res) {
-            activities.update('actividades', req.body, res);
+            activitiesDel.update('actividades', req.body, res);
         });
 
         app.delete('/actividades/:id', function (req, res) {
-            activities.delete('actividades', req.params.id, res);
+            activitiesDel.delete('actividades', req.params.id, res);
         });
 
     }
