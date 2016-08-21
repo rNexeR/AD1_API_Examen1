@@ -1,9 +1,7 @@
- Node.js, Express 3 and MySL to create a JSON API. 
+ Sample application that uses Node.js, Express 4 and MySQL to create a JSON API. 
 
 
 ## Installation
- 
- Install mongodb, run via mongod.
 
 Then cd into the cloned directory and run: 
 
