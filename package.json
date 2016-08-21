@@ -11,6 +11,7 @@
     "crypto": "0.0.3",
     "express": "3.0.0beta4",
     "jade": "*",
+    "mongoose": "^4.5.9",
     "mysql": "^2.9.0"
   },
   "author": "Malware Team"

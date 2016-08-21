@@ -10,11 +10,14 @@ var express = require('express')
   , groups_routes = require('./routes/groups_routes')
   , activities_routes = require('./routes/activities_routes')
   , evaluations_routes = require('./routes/evaluations_routes')
+  , mongoose = require('mongoose')
   , cors = require('cors');
 
 var app = express();
 app.use(bodyparser.urlencoded({extended: true}));
 app.use(bodyparser.json());
+
+mongoose.connect('mongodb://localhost/webTokens');
 
 app.use(cors());
 
