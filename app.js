@@ -48,6 +48,7 @@ users_routes.configure(app);
 groups_routes.configure(app);
 activities_routes.configure(app);
 evaluations_routes.configure(app);
+groupsActivities_routes.configure(app);
 
 app.get('/', index.index);
 
