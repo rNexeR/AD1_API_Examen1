@@ -1,13 +1,15 @@
 var connection = require('../connection');
 
-function activities() {
+function general() {
     this.get = function (table, res) {
         connection.acquire(function(err, con){
+            console.log(table);
             con.query('select * from ' + table, function (err, result) {
                 con.release();
-                if(err)
+                if(err){
+                    console.log(err);
                     res.json(500, {Error: err});
-                else
+                }else
                     res.json(200, result);
             })
         });
@@ -62,4 +64,4 @@ function activities() {
     };
 }
 
-module.exports = new activities();
+module.exports = new general();
