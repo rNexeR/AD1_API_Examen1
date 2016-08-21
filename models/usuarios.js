@@ -37,9 +37,9 @@ function users() {
         });
     }
 
-    this.delete = function (id, res) {
+    this.delete = function (data, res) {
         connection.acquire(function (err, con) {
-            con.query('delete from usuarios where id_usuario = ?', id, function (err, result) {
+            con.query('delete from usuarios where id_usuario = ?', [data.id_usuario], function (err, result) {
                 con.release();
                 if(err){
                     console.log(err);
@@ -50,9 +50,9 @@ function users() {
         });
     }
 
-    this.getOne = function (id, res) {
+    this.getOne = function (data, res) {
         connection.acquire(function(err, con){
-            con.query('select * from usuarios where id_usuario = ?', id, function (err, result) {
+            con.query('select * from usuarios where id_usuario = ?', [data.id_usuario], function (err, result) {
                 con.release();
                 if(err)
                     res.json(500, {Error: err});

@@ -1,9 +1,10 @@
 var connection = require('../connection');
 
-function activities() {
-    this.get = function (res) {
+function groupsActivities() {
+
+        this.get = function (res) {
         connection.acquire(function(err, con){
-            con.query('select * from actividades', function (err, result) {
+            con.query('select * from grupos_actividades', function (err, result) {
                 con.release();
                 if(err)
                     res.json(500, {Error: err});
@@ -15,7 +16,8 @@ function activities() {
 
     this.create = function (activity, res) {
         connection.acquire(function (err, con) {
-            con.query('insert into actividades set ?', activity, function (err, result) {
+            con.query('insert into grupos_actividades set ?', activity, function (err, result) {
+                console.log(activity);
                 con.release();
                 if(err)
                     res.json(500, {Message: 'Creacion de Actividad fallida'});
@@ -25,33 +27,33 @@ function activities() {
         });
     };
 
-    this.update = function (activity, res) {
+    this.update = function (data, res) {
         connection.acquire(function (err, con) {
-            con.query('update actividades set ? where id_actividad = ?', [activity, activity.id_Actividad], function (err, result) {
+            con.query('update grupos_actividades set ? where id_grupo = ?', [data, data.id_Grupo], function (err, result) {
                 con.release();
                 if(err)
-                    res.json(500, {Message: 'Actualizacion de Actividad fallida'});
+                    res.json(500, {Message: 'Actualizacion de actividad fallida'});
                 else
-                    res.json(200, {Message: 'Actualizacion de Actividad exitosa'});
+                    res.json(200, {Message: 'Actualizacion de actividad exitosa'});
             });
         });
     }
 
     this.delete = function (data, res) {
         connection.acquire(function (err, con) {
-            con.query('delete from actividades where id_actividad = ?', [data.id_Actividad], function (err, result) {
+            con.query('delete from grupos_actividades where id_grupo = ? and id_actividad = ?', [data.id_Grupo, data.id_Actividad], function (err, result) {
                 con.release();
                 if(err)
-                    res.json(500, {Message: 'Eliminacion de Actividad fallida'});
+                    res.json(500, {Message: 'Eliminacion de actividad fallida'});
                 else
-                    res.json(200, {Message: 'Eliminacion de Actividad exitosa'});
+                    res.json(200, {Message: 'Eliminacion de actividad exitosa'});
             });
         });
     }
 
-    this.getOne = function (data, res) {
+        this.getOne = function (data, res) {
         connection.acquire(function(err, con){
-            con.query('select * from actividades where id_actividad = ?', [data.id_Actividad], function (err, result) {
+            con.query('select * from grupos_actividades where id_grupo = ? and id_actividad = ?', [data.id_Grupo, data.id_Actividad], function (err, result) {
                 con.release();
                 if(err)
                     res.json(500, {Error: err});
@@ -62,4 +64,4 @@ function activities() {
     };
 }
 
-module.exports = new activities();
+module.exports = new groupsActivities();

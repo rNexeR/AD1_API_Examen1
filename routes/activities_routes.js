@@ -6,8 +6,8 @@ module.exports = {
             activities.get(res);
         });
 
-        app.get('/actividades/:id', function (req, res) {
-            activities.getOne(req.params.id, res);
+        app.get('/actividades', function (req, res) {
+            activities.getOne(req.body, res);
         });
 
         app.post('/actividades', function (req, res) {
@@ -18,8 +18,8 @@ module.exports = {
             activities.update(req.body, res);
         });
 
-        app.delete('/actividades/:id', function (req, res) {
-            activities.delete(req.params.id, res);
+        app.delete('/actividades', function (req, res) {
+            activities.delete(req.body, res);
         });
 
     }
