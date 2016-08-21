@@ -10,6 +10,7 @@ var express = require('express')
   , groups_routes = require('./routes/groups_routes')
   , activities_routes = require('./routes/activities_routes')
   , evaluations_routes = require('./routes/evaluations_routes')
+  , groupsActivities_routes = require('./routes/groupsActivities_routes')
   , cors = require('cors');
 
 var app = express();
