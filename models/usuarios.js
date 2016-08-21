@@ -39,11 +39,12 @@ function users() {
 
     this.delete = function (id, res) {
         connection.acquire(function (err, con) {
-            con.query('delete from usuarioswhere id_usuario = ?', id, function (err, result) {
+            con.query('delete from usuarios where id_usuario = ?', id, function (err, result) {
                 con.release();
-                if(err)
+                if(err){
+                    console.log(err);
                     res.json(500, {Message: 'Eliminacion de Usuario fallida'});
-                else
+                }else
                     res.json(200, {Message: 'Eliminacion de Usuario exitosa'});
             });
         });
