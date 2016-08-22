@@ -1,5 +1,6 @@
 var users = require('../models/usuarios');
 var crypto = require('crypto');
+var token = require('../models/usuarios').token; 
 
 module.exports = {
     configure: function (app) {
@@ -28,6 +29,16 @@ module.exports = {
         app.post('/login', function (req, res) {
             users.validate(req.body, res);
         });
+
+        app.get('/get',function(req, res) {
+            token.find({}, function(err, docs) {
+                if(!err) {
+                res.json(200,docs);  
+                } else {
+                res.json(500, { message: err });
+                }
+            });
+        })
 
     }
 };

@@ -66,6 +66,7 @@ function users() {
         });
     };
 
+
     this.validate = function (data, res) {
         connection.acquire(function(err, con){
             con.query('select count(id_usuario) as user from usuarios where id_usuario = ? and password = ?', [data.id_usuario, data.password], function (err, result) {
@@ -100,7 +101,7 @@ function users() {
                             else
                                 console.log("Success");
                         });
-                        
+
                      });
 
                     res.json(200, token);
