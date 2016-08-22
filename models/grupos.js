@@ -27,7 +27,7 @@ function groups() {
 
     this.update = function (group, res) {
         connection.acquire(function (err, con) {
-            con.query('update grupos set ? where id_grupo = ?', [group, group.id_Grupo], function (err, result) {
+            con.query('update grupos set ? where id_grupo = ?', [group, group.id_grupo], function (err, result) {
                 con.release();
                 if(err)
                     res.json(500, {Message: 'Actualizacion de Grupo fallida'});
@@ -39,7 +39,7 @@ function groups() {
 
     this.delete = function (data, res) {
         connection.acquire(function (err, con) {
-            con.query('delete from grupos where id_grupo = ?', [data.id_Grupo], function (err, result) {
+            con.query('delete from grupos where id_grupo = ?', [data.id_grupo], function (err, result) {
                 con.release();
                 if(err)
                     res.json(500, {Message: 'Eliminacion de Grupo fallida'});

@@ -18,8 +18,8 @@ module.exports = {
             activities.update(req.body, res);
         });
 
-        app.delete('/actividades', function (req, res) {
-            activities.delete(req.body, res);
+        app.delete('/actividades/:id', function (req, res) {
+            activities.delete(req.params.id, res);
         });
 
     }
