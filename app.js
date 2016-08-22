@@ -11,11 +11,15 @@ var express = require('express')
   , activities_routes = require('./routes/activities_routes')
   , evaluations_routes = require('./routes/evaluations_routes')
   , groupsActivities_routes = require('./routes/groupsActivities_routes')
+  , mongoose = require('mongoose')
   , cors = require('cors');
 
 var app = express();
 app.use(bodyparser.urlencoded({extended: true}));
 app.use(bodyparser.json());
+
+mongoose.connect('mongodb://localhost/webTokens');
+var db = mongoose.connection;
 
 app.use(cors());
 

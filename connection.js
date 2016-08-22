@@ -8,8 +8,8 @@ function Connection() {
       connectionLimit: 10,
       host: '',
       user: 'root',
-      password: 'Password123',
-      database: 'ad1_exa1'
+      password: 'Password123!!',
+      database: 'ad1_t1'
     });
   };
 
