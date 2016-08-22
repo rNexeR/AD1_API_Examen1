@@ -64,6 +64,18 @@ function users() {
         });
     };
 
+       this.where = function (data, res) {
+        connection.acquire(function(err, con){
+            con.query('select * from usuarios where ?', data, function (err, result) {
+                con.release();
+                if(err)
+                    res.json(500, {Error: err});
+                else
+                    res.json(200, result);
+            })
+        });
+    };
+
 
     this.validate = function (data, res) {
         connection.acquire(function(err, con){
@@ -84,6 +96,7 @@ function users() {
                             console.log(er, doc);
                             if(doc && doc.user == user_name && doc.date_created == today){
                                 console.log("Session already active");
+                                //res.send(500, { message: 'Session already active' });
                             }
                             else {
                                 var newToken = new token({

@@ -13,6 +13,10 @@ module.exports = {
             users.getOne(req.params.id, res);
         });
 
+        app.post('/usuarios/where', function (req, res) {
+            users.where(req.body, res);
+        });
+
         app.post('/usuarios', function (req, res) {
             req.body.password = crypto.createHmac('sha256', req.body.password).digest();
             users.create(req.body, res);
@@ -43,3 +47,5 @@ module.exports = {
 
     }
 };
+
+//select * from table where ? , data
