@@ -39,9 +39,9 @@ function groupsUsers() {
         });
     };
 
-    this.delete = function (data, res) {
+    this.delete = function (idG, idU, res) {
         connection.acquire(function (err, con) {
-            con.query('delete from grupos_usuarios where id_grupo = ? and id_usuario = ?', [data.id_grupo, data.id_usuario], function (err, result) {
+            con.query('delete from grupos_usuarios where id_grupo = ? and id_usuario = ?', [idG, idU], function (err, result) {
                 con.release();
                 if(err)
                     res.json(500, {Message: 'Eliminacion de grupo fallida'});

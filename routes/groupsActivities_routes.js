@@ -18,8 +18,8 @@ module.exports = {
             groupsActivities.update(req.body, res);
         });
 
-        app.delete('/gruposActividades', function (req, res) {
-            groupsActivities.delete(req.body, res);
+        app.delete('/gruposActividades/:idG-idA', function (req, res) {
+            groupsActivities.delete(req.params.idG, req.params.idA, res);
         });
 
         app.post('/gruposActividades/where', function (req, res) {

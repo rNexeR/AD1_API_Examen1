@@ -18,8 +18,8 @@ module.exports = {
             groups.update(req.body, res);
         });
 
-        app.delete('/grupos', function (req, res) {
-            groups.delete(req.body, res);
+        app.delete('/grupos/:id', function (req, res) {
+            groups.delete(req.params.id, res);
         });
 
         app.post('/grupos/where', function (req, res) {

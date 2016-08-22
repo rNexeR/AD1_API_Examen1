@@ -39,9 +39,9 @@ function users() {
         });
     }
 
-    this.delete = function (data, res) {
+    this.delete = function (id, res) {
         connection.acquire(function (err, con) {
-            con.query('delete from usuarios where id_usuario = ?', [data.id_usuario], function (err, result) {
+            con.query('delete from usuarios where id_usuario = ?', id, function (err, result) {
                 con.release();
                 if(err){
                     console.log(err);
@@ -85,38 +85,39 @@ function users() {
                     res.json(500, {Error: err});
                 else{
                     //Token construction
-                    var today = new Date();
-                    var tokenToSend = result.id_usuario + today.toDateString();
-                    tokenToSend = crypto.createHmac('sha256', tokenToSend).digest();
+                    // var today = new Date();
+                    // var tokenToSend = result.id_usuario + today.toDateString();
+                    // tokenToSend = crypto.createHmac('sha256', tokenToSend).digest();
 
-                    var user_name = data.id_usuario; // Name of users. 
+                    // var user_name = data.id_usuario; // Name of users. 
   
-                    token.findOne({ user: user_name, date_created: today }, function(er, doc){
-                        if(!er) {
-                            console.log(er, doc);
-                            if(doc && doc.user == user_name && doc.date_created == today){
-                                console.log("Session already active");
-                                res.send(500, { message: 'Session already active' });
-                            }
-                            else {
-                                var newToken = new token({
-                                    user: 'user_name',
-                                    token: tokenToSend.toString()
-                                });
-                                console.log(data);
-                                newToken.save(function(error) {
-                                    console.log(error);
-                                    if(!error) {
-                                        res.json(200, {token: newToken.token});
-                                    } else {
-                                        res.send(500, { message: error });
-                                    }
-                                });
-                            }
-                        } else {
-                            res.send(500, { message: er });
-                        }
-                    });
+                    // token.findOne({ user: user_name, date_created: today }, function(er, doc){
+                    //     if(!er) {
+                    //         console.log(er, doc);
+                    //         if(doc && doc.user == user_name && doc.date_created == today){
+                    //             console.log("Session already active");
+                    //             res.send(500, { message: 'Session already active' });
+                    //         }
+                    //         else {
+                    //             var newToken = new token({
+                    //                 user: 'user_name',
+                    //                 token: tokenToSend.toString()
+                    //             });
+                    //             console.log(data);
+                    //             newToken.save(function(error) {
+                    //                 console.log(error);
+                    //                 if(!error) {
+                    //                     res.json(200, {token: newToken.token});
+                    //                 } else {
+                    //                     res.send(500, { message: error });
+                    //                 }
+                    //             });
+                    //         }
+                    //     } else {
+                    //         res.send(500, { message: er });
+                    //     }
+                    // });
+                    res.json(200, {message: "success"});
                 }
             })
         });

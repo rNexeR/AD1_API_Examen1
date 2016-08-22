@@ -37,9 +37,9 @@ function evaluations() {
         });
     };
 
-    this.delete = function (data, res) {
+    this.delete = function (id, res) {
         connection.acquire(function (err, con) {
-            con.query('delete from evaluaciones where id_evaluacion = ?', [data.id_evaluacion], function (err, result) {
+            con.query('delete from evaluaciones where id_evaluacion = ?', id, function (err, result) {
                 con.release();
                 if(err)
                     res.json(500, {Message: 'Eliminacion de Evaluacion fallida'});

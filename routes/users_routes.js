@@ -27,8 +27,8 @@ module.exports = {
             users.update(req.body, res);
         });
 
-        app.delete('/usuarios', function (req, res) {
-            users.delete(req.body, res);
+        app.delete('/usuarios/:id', function (req, res) {
+            users.delete(req.params.id, res);
         });
 
         app.post('/login', function (req, res) {

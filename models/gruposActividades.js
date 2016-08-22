@@ -29,7 +29,7 @@ function groupsActivities() {
 
     this.update = function (data, res) {
         connection.acquire(function (err, con) {
-            con.query('update grupos_actividades set ? where id_grupo = ?', [data, data.id_grupo], function (err, result) {
+            con.query('update grupos_actividades set ? where id_grupo = ? and id_actividad', [data, data.id_grupo, data.id_actividad], function (err, result) {
                 con.release();
                 if(err)
                     res.json(500, {Message: 'Actualizacion de actividad fallida'});
@@ -39,9 +39,9 @@ function groupsActivities() {
         });
     };
 
-    this.delete = function (data, res) {
+    this.delete = function (idG, idA, res) {
         connection.acquire(function (err, con) {
-            con.query('delete from grupos_actividades where id_grupo = ? and id_actividad = ?', [data.id_grupo, data.id_actividad], function (err, result) {
+            con.query('delete from grupos_actividades where id_grupo = ? and id_actividad = ?', [idG, idA], function (err, result) {
                 con.release();
                 if(err)
                     res.json(500, {Message: 'Eliminacion de actividad fallida'});

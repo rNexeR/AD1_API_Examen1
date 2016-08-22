@@ -18,8 +18,8 @@ module.exports = {
             evaluations.update(req.body, res);
         });
 
-        app.delete('/evaluaciones', function (req, res) {
-            evaluations.delete(req.body, res);
+        app.delete('/evaluaciones/:id', function (req, res) {
+            evaluations.delete(req.params.id, res);
         });
 
          app.post('/evaluaciones/where', function (req, res) {

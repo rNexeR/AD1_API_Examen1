@@ -37,9 +37,9 @@ function groups() {
         });
     };
 
-    this.delete = function (data, res) {
+    this.delete = function (id, res) {
         connection.acquire(function (err, con) {
-            con.query('delete from grupos where id_grupo = ?', [data.id_grupo], function (err, result) {
+            con.query('delete from grupos where id_grupo = ?', id, function (err, result) {
                 con.release();
                 if(err)
                     res.json(500, {Message: 'Eliminacion de Grupo fallida'});
