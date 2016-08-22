@@ -79,7 +79,8 @@ function users() {
 
     this.validate = function (data, res) {
         connection.acquire(function(err, con){
-            con.query('select count(id_usuario) where id_usuario = ? and password = ?', [data.id_usuario, data.password], function (err, result) {
+            var passwordDb = crypto.createHmac('sha256', data.password).digest();
+            con.query('select count(id_usuario) where id_usuario = ? and password = ?', [data.id_usuario, passwordDb], function (err, result) {
                 con.release();
                 if(err)
                     res.json(500, {Error: err});
