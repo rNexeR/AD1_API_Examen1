@@ -83,7 +83,7 @@ function users() {
                         if(!er) {
                             console.log(er, doc);
                             if(doc && doc.user == user_name && doc.date_created == today){
-                                console.log("no error");
+                                console.log("Session already active");
                             }
                             else {
                                 var newToken = new token({
@@ -104,8 +104,6 @@ function users() {
                             res.send(500, { message: er });
                         }
                     });
-
-                    // res.json(200, tokenToSend.toString());
                 }
             })
         });
