@@ -74,24 +74,25 @@ function users() {
                 else{
                     //Token construction
                     var today = new Date();
-                    var tokenToSend = result.id_usuario + today;
+                    var tokenToSend = result.id_usuario + today.toDateString();
                     tokenToSend = crypto.createHmac('sha256', tokenToSend).digest();
+                    console.log(tokenToSend.toString());
 
                     var users_name = data.id_usuario; // Name of users. 
                     var password = data.password;  // Description of the users
   
-                    token.findOne({ user: users_name }, function(err, doc){
+                    /*token.findOne({ user: users_name }, function(err, doc){
                         if(!err) {
-                            if(doc.password == users_password)
+                            if(doc && doc.password == users_password)
                                 res.json(200,doc);  
                             else
                                 res.json(500, { message: err });
                         } else {
                             res.json(500, { message: err });
                         }
-                    });
+                    });*/
 
-                    res.json(200, tokenToSend);
+                    res.json(200, tokenToSend.toString());
                 }
             })
         });
