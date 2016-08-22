@@ -79,12 +79,15 @@ function users() {
 
     this.validate = function (data, res) {
         connection.acquire(function(err, con){
-            var passwordDb = crypto.createHmac('sha256', data.password).digest();
-            con.query('select * from usuarios where id_usuario = ? and password ?', [data.id_usuario, passwordDb], function (err, result) {
+            data.password = crypto.createHmac('sha256', data.password).digest().toString();
+            console.log(data.password);
+            con.query('select * from usuarios where  ?', [data], function (err, result) {
                 con.release();
-                if(err)
+                if(err){
+
+                    console.log('llego aqui ' + err);
                     res.json(500, {Error: err});
-                else{
+                }else{
                     //Token construction
                     // var today = new Date();
                     // var tokenToSend = result.id_usuario + today.toDateString();

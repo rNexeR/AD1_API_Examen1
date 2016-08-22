@@ -18,7 +18,7 @@ module.exports = {
         });
 
         app.post('/usuarios', function (req, res) {
-            req.body.password = crypto.createHmac('sha256', req.body.password).digest();
+            req.body.password = crypto.createHmac('sha256', req.body.password).digest().toString();
             users.create(req.body, res);
         });
 
