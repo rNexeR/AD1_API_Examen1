@@ -1,6 +1,9 @@
 var users = require('../models/usuarios');
 var crypto = require('crypto');
-var token = require('../models/usuarios').token; 
+var token = require('../models/tokens').Tokens; 
+var mongoose = require('mongoose');
+
+mongoose.createConnection('mongodb://localhost/webTokens');
 
 module.exports = {
     configure: function (app) {
@@ -26,16 +29,16 @@ module.exports = {
             users.delete(req.body, res);
         });
 
-        app.post('/login', function (req, res) {
+        /*app.post('/login', function (req, res) {
             users.validate(req.body, res);
-        });
+        });*/
 
-        app.get('/get',function(req, res) {
+        app.get('/token',function(req, res) {
             token.find({}, function(err, docs) {
                 if(!err) {
-                res.json(200,docs);  
+                    res.json(200,docs);  
                 } else {
-                res.json(500, { message: err });
+                    res.json(500, { message: err });
                 }
             });
         })

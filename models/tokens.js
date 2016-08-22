@@ -8,7 +8,7 @@ var tokensSchema = new Schema({
   , token : {type: String, required: true, trim: true }
 });
 
-var tokens = mongoose.model('tokens', usersSchema);
+var tokens = mongoose.model('tokens', tokensSchema);
 
 module.exports = {
   Tokens: tokens
