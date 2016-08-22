@@ -27,7 +27,7 @@ function evaluations() {
 
     this.update = function (group, res) {
         connection.acquire(function (err, con) {
-            con.query('update evaluaciones set ? where id_evaluacion = ?', [group, group.id_Evaluacion], function (err, result) {
+            con.query('update evaluaciones set ? where id_evaluacion = ?', [group, group.id_evaluacion], function (err, result) {
                 con.release();
                 if(err)
                     res.json(500, {Message: 'Actualizacion de Evaluacion fallida'});
@@ -39,7 +39,7 @@ function evaluations() {
 
     this.delete = function (data, res) {
         connection.acquire(function (err, con) {
-            con.query('delete from evaluaciones where id_evaluacion = ?', [data.id_Evaluacion], function (err, result) {
+            con.query('delete from evaluaciones where id_evaluacion = ?', [data.id_evaluacion], function (err, result) {
                 con.release();
                 if(err)
                     res.json(500, {Message: 'Eliminacion de Evaluacion fallida'});
