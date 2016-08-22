@@ -32,6 +32,7 @@ module.exports = {
         });
 
         app.post('/login', function (req, res) {
+            console.log(req.body);
             users.validate(req.body, res);
         });
 

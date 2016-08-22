@@ -9,7 +9,7 @@ function Connection() {
       host: '',
       user: 'root',
       password: 'pass123',
-      database: 'ad1_exa1'
+      database: 'ad1_t1'
     });
   };
 

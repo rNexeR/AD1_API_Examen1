@@ -11,6 +11,7 @@ var express = require('express')
   , activities_routes = require('./routes/activities_routes')
   , evaluations_routes = require('./routes/evaluations_routes')
   , groupsActivities_routes = require('./routes/groupsActivities_routes')
+  , groupsUsers_routes = require('./routes/groupsUsers_routes')
   , mongoose = require('mongoose')
   , cors = require('cors');
 
@@ -18,7 +19,7 @@ var app = express();
 app.use(bodyparser.urlencoded({extended: true}));
 app.use(bodyparser.json());
 
-mongoose.connect('mongodb://localhost:8000/webTokens');
+mongoose.connect('mongodb://localhost/webTokens');
 var db = mongoose.connection;
 
 app.use(cors());
@@ -54,6 +55,7 @@ groups_routes.configure(app);
 activities_routes.configure(app);
 evaluations_routes.configure(app);
 groupsActivities_routes.configure(app);
+groupsUsers_routes.configure(app);
 
 app.get('/', index.index);
 
