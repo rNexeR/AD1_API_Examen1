@@ -35,7 +35,7 @@ function activities() {
                     res.json(200, {Message: 'Actualizacion de Actividad exitosa'});
             });
         });
-    }
+    };
 
     this.delete = function (id, res) {
         connection.acquire(function (err, con) {
@@ -47,11 +47,23 @@ function activities() {
                     res.json(200, {Message: 'Eliminacion de Actividad exitosa'});
             });
         });
-    }
+    };
 
     this.getOne = function (id, res) {
         connection.acquire(function(err, con){
             con.query('select * from actividades where id_actividad = ?', id, function (err, result) {
+                con.release();
+                if(err)
+                    res.json(500, {Error: err});
+                else
+                    res.json(200, result);
+            })
+        });
+    };
+
+    this.where = function (data, res) {
+        connection.acquire(function(err, con){
+            con.query('select * from actividades where ?', data, function (err, result) {
                 con.release();
                 if(err)
                     res.json(500, {Error: err});

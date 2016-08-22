@@ -22,5 +22,9 @@ module.exports = {
             groups.delete(req.body, res);
         });
 
+        app.post('/grupos/where', function (req, res) {
+            groups.where(req.body, res);
+        });
+
     }
 };

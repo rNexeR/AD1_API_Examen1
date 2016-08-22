@@ -64,6 +64,18 @@ function users() {
         });
     };
 
+    this.where = function (data, res) {
+        connection.acquire(function(err, con){
+            con.query('select * from usuarios where ?', data, function (err, result) {
+                con.release();
+                if(err)
+                    res.json(500, {Error: err});
+                else
+                    res.json(200, result);
+            })
+        });
+    };
+
 
     this.validate = function (data, res) {
         connection.acquire(function(err, con){

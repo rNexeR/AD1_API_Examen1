@@ -35,7 +35,7 @@ function evaluations() {
                     res.json(200, {Message: 'Actualizacion de Evaluacion exitosa'});
             });
         });
-    }
+    };
 
     this.delete = function (data, res) {
         connection.acquire(function (err, con) {
@@ -47,11 +47,23 @@ function evaluations() {
                     res.json(200, {Message: 'Eliminacion de Evaluacion exitosa'});
             });
         });
-    }
+    };
 
     this.getOne = function (id, res) {
         connection.acquire(function(err, con){
             con.query('select * from evaluaciones where id_evaluacion = ?',  id, function (err, result) {
+                con.release();
+                if(err)
+                    res.json(500, {Error: err});
+                else
+                    res.json(200, result);
+            })
+        });
+    };
+
+        this.where = function (data, res) {
+        connection.acquire(function(err, con){
+            con.query('select * from evaluaciones where ?', data, function (err, result) {
                 con.release();
                 if(err)
                     res.json(500, {Error: err});

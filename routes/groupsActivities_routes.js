@@ -21,5 +21,9 @@ module.exports = {
         app.delete('/gruposActividades', function (req, res) {
             groupsActivities.delete(req.body, res);
         });
+
+        app.post('/gruposActividades/where', function (req, res) {
+            groupsActivities.where(req.body, res);
+        });
     }
 }
