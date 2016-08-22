@@ -67,7 +67,8 @@ function users() {
 
     this.validate = function (data, res) {
         connection.acquire(function(err, con){
-            con.query('select id_usuario, tipo, password from usuarios where id_usuario = ? and password = ?', [data.id_usuario, data.password], function (err, result) {
+            con.query('')
+            con.query('select id_usuario, tipo, password from usuarios where id_usuario = ?', [data.id_usuario], function (err, result) {
                 con.release();
                 if(err)
                     res.json(500, {Error: err});
@@ -76,21 +77,20 @@ function users() {
                     var today = new Date();
                     var tokenToSend = result.id_usuario + today.toDateString();
                     tokenToSend = crypto.createHmac('sha256', tokenToSend).digest();
-                    console.log(tokenToSend.toString());
 
                     var users_name = data.id_usuario; // Name of users. 
-                    var password = data.password;  // Description of the users
   
-                    /*token.findOne({ user: users_name }, function(err, doc){
+                    token.findOne({ user: users_name, date_created: today }, function(err, doc){
                         if(!err) {
-                            if(doc && doc.password == users_password)
-                                res.json(200,doc);  
+                            if(doc && doc.user == users_name && doc.date_created == today){
+                                console.log("no error");
+                            }
                             else
                                 res.json(500, { message: err });
                         } else {
                             res.json(500, { message: err });
                         }
-                    });*/
+                    });
 
                     res.json(200, tokenToSend.toString());
                 }
