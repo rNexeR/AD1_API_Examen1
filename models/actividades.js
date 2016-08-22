@@ -27,7 +27,7 @@ function activities() {
 
     this.update = function (activity, res) {
         connection.acquire(function (err, con) {
-            con.query('update actividades set ? where id_actividad = ?', [activity, activity.id_Actividad], function (err, result) {
+            con.query('update actividades set ? where id_actividad = ?', [activity, activity.id_actividad], function (err, result) {
                 con.release();
                 if(err)
                     res.json(500, {Message: 'Actualizacion de Actividad fallida'});
@@ -39,7 +39,7 @@ function activities() {
 
     this.delete = function (data, res) {
         connection.acquire(function (err, con) {
-            con.query('delete from actividades where id_actividad = ?', [data.id_Actividad], function (err, result) {
+            con.query('delete from actividades where id_actividad = ?', [data.id_actividad], function (err, result) {
                 con.release();
                 if(err)
                     res.json(500, {Message: 'Eliminacion de Actividad fallida'});

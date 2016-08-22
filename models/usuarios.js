@@ -67,7 +67,6 @@ function users() {
 
     this.validate = function (data, res) {
         connection.acquire(function(err, con){
-            con.query('')
             con.query('select id_usuario, tipo, password from usuarios where id_usuario = ?', [data.id_usuario], function (err, result) {
                 con.release();
                 if(err)
@@ -78,21 +77,35 @@ function users() {
                     var tokenToSend = result.id_usuario + today.toDateString();
                     tokenToSend = crypto.createHmac('sha256', tokenToSend).digest();
 
-                    var users_name = data.id_usuario; // Name of users. 
+                    var user_name = data.id_usuario; // Name of users. 
   
-                    token.findOne({ user: users_name, date_created: today }, function(err, doc){
-                        if(!err) {
-                            if(doc && doc.user == users_name && doc.date_created == today){
+                    token.findOne({ user: user_name, date_created: today }, function(er, doc){
+                        if(!er) {
+                            console.log(er, doc);
+                            if(doc && doc.user == user_name && doc.date_created == today){
                                 console.log("no error");
                             }
-                            else
-                                res.json(500, { message: err });
+                            else {
+                                var newToken = new token({
+                                    user: 'user_name',
+                                    token: tokenToSend.toString()
+                                });
+                                console.log(data);
+                                newToken.save(function(error) {
+                                    console.log(error);
+                                    if(!error) {
+                                        res.json(200, {token: newToken.token});
+                                    } else {
+                                        res.send(500, { message: error });
+                                    }
+                                });
+                            }
                         } else {
-                            res.json(500, { message: err });
+                            res.send(500, { message: er });
                         }
                     });
 
-                    res.json(200, tokenToSend.toString());
+                    // res.json(200, tokenToSend.toString());
                 }
             })
         });

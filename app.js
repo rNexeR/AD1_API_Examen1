@@ -18,7 +18,7 @@ var app = express();
 app.use(bodyparser.urlencoded({extended: true}));
 app.use(bodyparser.json());
 
-mongoose.connect('mongodb://localhost/webTokens');
+mongoose.connect('mongodb://localhost:8000/webTokens');
 var db = mongoose.connection;
 
 app.use(cors());
