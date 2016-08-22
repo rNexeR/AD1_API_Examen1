@@ -1,5 +1,6 @@
 var connection = require('../connection');
 var crypto = require('crypto');
+var token = require('../models/tokens').Tokens; 
 
 function users() {
     this.get = function (res) {
@@ -73,10 +74,24 @@ function users() {
                 else{
                     //Token construction
                     var today = new Date();
-                     var token = result.id_usuario + today;
-                     token = crypto.createHmac('sha256', token).digest();
+                    var tokenToSend = result.id_usuario + today;
+                    tokenToSend = crypto.createHmac('sha256', token).digest();
 
-                    res.json(200, token);
+                    var users_name = data.id_usuario; // Name of users. 
+                    var password = data.password;  // Description of the users
+  
+                    token.findOne({ user: users_name }, function(err, doc){
+                        if(!err) {
+                            if(doc.password == users_password)
+                                res.json(200,doc);  
+                            else
+                                res.json(500, { message: err });
+                        } else {
+                            res.json(500, { message: err });
+                        }
+                    });
+
+                    res.json(200, tokenToSend);
                 }
             })
         });

@@ -29,40 +29,6 @@ module.exports = {
 
         app.post('/login', function (req, res) {
             users.validate(req.body, res);
-
-          var users_name = req.body.id_usuario; // Name of users. 
-          var password = req.body.password;  // Description of the users
-          
-          //Users.findOne({ name: users_name }, function(err, doc) {  // This line is case sensitive.
-          token.findOne({ user: { $regex: new RegExp('^'+users_name+'$', "i") } }, function(err, doc) {  // Using RegEx - search is case insensitive
-            if(!err && !doc) {
-              
-              var newToken = new token(); 
-
-              newToken.name = users_name; 
-              newToken.password = password; 
-              newToken.date_created = new Date();;
-              newToken.token = res;
-              
-              newToken.save(function(err) {
-
-                if(!err) {
-                  res.json(201, {message: "Users created with name: " + newToken.id_usuario });    
-                } else {
-                  res.json(500, {message: "Could not create users. Error: " + err});
-                }
-
-              });
-
-            } else if(!err) {
-              
-              // User is trying to create a users with a name that already exists. 
-              res.json(403, {message: "Users with that name already exists, please update instead of create or create a new users with a different name."}); 
-
-            } else {
-              res.json(500, { message: err});
-            } 
-          });
         });
 
         app.get('/token',function(req, res) {
