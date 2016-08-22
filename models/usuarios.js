@@ -67,7 +67,7 @@ function users() {
 
     this.validate = function (data, res) {
         connection.acquire(function(err, con){
-            con.query('select count(id_usuario) as user from usuarios where id_usuario = ? and password = ?', [data.id_usuario, data.password], function (err, result) {
+            con.query('select id_usuario, tipo, password from usuarios where id_usuario = ? and password = ?', [data.id_usuario, data.password], function (err, result) {
                 con.release();
                 if(err)
                     res.json(500, {Error: err});
@@ -75,7 +75,7 @@ function users() {
                     //Token construction
                     var today = new Date();
                     var tokenToSend = result.id_usuario + today;
-                    tokenToSend = crypto.createHmac('sha256', token).digest();
+                    tokenToSend = crypto.createHmac('sha256', tokenToSend).digest();
 
                     var users_name = data.id_usuario; // Name of users. 
                     var password = data.password;  // Description of the users
