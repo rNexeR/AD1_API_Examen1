@@ -79,7 +79,7 @@ function users() {
 
     this.validate = function (data, res) {
         connection.acquire(function(err, con){
-            con.query('select id_usuario, tipo, password from usuarios where id_usuario = ?', data, function (err, result) {
+            con.query('select count(id_usuario) where id_usuario = ? and password = ?', [data.id_usuario, data.password], function (err, result) {
                 con.release();
                 if(err)
                     res.json(500, {Error: err});
