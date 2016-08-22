@@ -48,5 +48,3 @@ module.exports = {
 
     }
 };
-
-//select * from table where ? , data

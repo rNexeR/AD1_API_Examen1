@@ -37,7 +37,7 @@ function groupsActivities() {
                     res.json(200, {Message: 'Actualizacion de actividad exitosa'});
             });
         });
-    }
+    };
 
     this.delete = function (data, res) {
         connection.acquire(function (err, con) {
@@ -49,11 +49,23 @@ function groupsActivities() {
                     res.json(200, {Message: 'Eliminacion de actividad exitosa'});
             });
         });
-    }
+    };
 
         this.getOne = function (idG, idA, res) {
         connection.acquire(function(err, con){
             con.query('select * from grupos_actividades where id_grupo = ? and id_actividad = ?', [idG, idA], function (err, result) {
+                con.release();
+                if(err)
+                    res.json(500, {Error: err});
+                else
+                    res.json(200, result);
+            })
+        });
+    };
+
+    this.where = function (data, res) {
+        connection.acquire(function(err, con){
+            con.query('select * from grupos_actividades where ?', data, function (err, result) {
                 con.release();
                 if(err)
                     res.json(500, {Error: err});

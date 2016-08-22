@@ -35,7 +35,7 @@ function groups() {
                     res.json(200, {Message: 'Actualizacion de Grupo exitosa'});
             });
         });
-    }
+    };
 
     this.delete = function (data, res) {
         connection.acquire(function (err, con) {
@@ -47,11 +47,23 @@ function groups() {
                     res.json(200, {Message: 'Eliminacion de Grupo exitosa'});
             });
         });
-    }
+    };
 
     this.getOne = function (id, res) {
         connection.acquire(function(err, con){
             con.query('select * from grupos where id_grupo = ?', id, function (err, result) {
+                con.release();
+                if(err)
+                    res.json(500, {Error: err});
+                else
+                    res.json(200, result);
+            })
+        });
+    };
+
+    this.where = function (data, res) {
+        connection.acquire(function(err, con){
+            con.query('select * from grupos where ?', data, function (err, result) {
                 con.release();
                 if(err)
                     res.json(500, {Error: err});

@@ -22,5 +22,9 @@ module.exports = {
             activities.delete(req.body, res);
         });
 
+        app.post('/actividades/where', function (req, res) {
+            activities.where(req.body, res);
+        });
+
     }
 };

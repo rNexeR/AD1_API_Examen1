@@ -22,5 +22,9 @@ module.exports = {
             evaluations.delete(req.body, res);
         });
 
+         app.post('/evaluaciones/where', function (req, res) {
+            evaluations.where(req.body, res);
+        });
+
     }
 };

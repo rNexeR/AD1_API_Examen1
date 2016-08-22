@@ -64,7 +64,7 @@ function users() {
         });
     };
 
-       this.where = function (data, res) {
+    this.where = function (data, res) {
         connection.acquire(function(err, con){
             con.query('select * from usuarios where ?', data, function (err, result) {
                 con.release();

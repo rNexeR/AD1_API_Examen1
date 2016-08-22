@@ -21,5 +21,9 @@ module.exports = {
         app.delete('/gruposUsuarios', function (req, res) {
             groupsUsers.delete(req.body, res);
         });
+
+        app.post('/gruposUsuarios/where', function (req, res) {
+            groupsUsers.where(req.body, res);
+        });
     }
 }
