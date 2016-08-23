@@ -80,52 +80,48 @@ function users() {
     this.validate = function (data, res) {
         connection.acquire(function(err, con){
             data.password = crypto.createHmac('sha256', data.password).digest('hex');
-            console.log(data.password);
             con.query('select * from usuarios where id_usuario = ? and password = ?', [data.id_usuario, data.password], function (errr, result) {
                 con.release();
                 if(result == ''){
-
-                    console.log('llego aqui ' + err);
                     res.json(500, {Error: errr});
                 }else{
                     //Token construction
-                    // var today = new Date();
-                    // var tokenToSend = result.id_usuario + today.toDateString();
-                    // tokenToSend = crypto.createHmac('sha256', tokenToSend).digest();
+                     var today = new Date();
+                     var tokenToSend = result.id_usuario + today.toDateString();
+                     tokenToSend = crypto.createHmac('sha256', tokenToSend).digest('hex');
 
-                    // var user_name = data.id_usuario; // Name of users. 
+                     var user_name = data.id_usuario; // Name of users. 
   
-                    // token.findOne({ user: user_name, date_created: today }, function(er, doc){
-                    //     if(!er) {
-                    //         console.log(er, doc);
-                    //         if(doc && doc.user == user_name && doc.date_created == today){
-                    //             console.log("Session already active");
-                    //             res.send(500, { message: 'Session already active' });
-                    //         }
-                    //         else {
-                    //             var newToken = new token({
-                    //                 user: 'user_name',
-                    //                 token: tokenToSend.toString()
-                    //             });
-                    //             console.log(data);
-                    //             newToken.save(function(error) {
-                    //                 console.log(error);
-                    //                 if(!error) {
-                    //                     res.json(200, {token: newToken.token});
-                    //                 } else {
-                    //                     res.send(500, { message: error });
-                    //                 }
-                    //             });
-                    //         }
-                    //     } else {
-                    //         res.send(500, { message: er });
-                    //     }
-                    // });
-                    //if(err)
-                    //    res.json(500, {message: "error"});
-                    //else
-                        console.log(result);
-                        res.json(200, result);
+                     token.findOne({ user: user_name, date_created: today }, function(er, doc){
+                         if(!er) {
+                             console.log(doc);
+                             if(doc && doc.user == user_name && doc.date_created == today){
+                                 console.log("Session already active");
+                                 res.send(500, { message: 'Session already active' });
+                             }
+                             else {
+                                 var newToken = new token({
+                                     user: user_name,
+                                     token: tokenToSend.toString()
+                                 });
+                                 console.log(data);
+                                 newToken.save(function(error) {
+                                     console.log(error);
+                                     if(!error) {
+                                         res.json(200, {token: newToken.token});
+                                     } else {
+                                         res.send(500, { message: error });
+                                     }
+                                 });
+                             }
+                         } else {
+                             res.send(500, { message: er });
+                         }
+                     });
+                    /*if(err)
+                        res.json(500, {message: "error"});
+                    else
+                        res.json(200, result);*/
                 }
             })
         });
