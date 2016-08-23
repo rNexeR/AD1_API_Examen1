@@ -81,12 +81,12 @@ function users() {
         connection.acquire(function(err, con){
             data.password = crypto.createHmac('sha256', data.password).digest('hex');
             console.log(data.password);
-            con.query('select count(*) as login from usuarios where id_usuario = ? and password = ?', [data.id_usuario, data.password], function (err, result) {
+            con.query('select * from usuarios where id_usuario = ? and password = ?', [data.id_usuario, data.password], function (errr, result) {
                 con.release();
-                if(err){
+                if(result == ''){
 
                     console.log('llego aqui ' + err);
-                    res.json(500, {Error: err});
+                    res.json(500, {Error: errr});
                 }else{
                     //Token construction
                     // var today = new Date();
@@ -121,10 +121,11 @@ function users() {
                     //         res.send(500, { message: er });
                     //     }
                     // });
-                    if(res.login == 1)
-                        res.json(500, {message: "error"});
-                    else
-                    res.json(200, {message: "success"});
+                    //if(err)
+                    //    res.json(500, {message: "error"});
+                    //else
+                        console.log(result);
+                        res.json(200, result);
                 }
             })
         });
