@@ -20,7 +20,7 @@ function users() {
             con.query('insert into usuarios set ?', user, function (err, result) {
                 con.release();
                 if(err)
-                    res.json(500, {Message: 'Creacion de Usuario fallida'});
+                    res.json(500, {Message: 'Creacion de Usuario fallida ' + err});
                 else    
                     res.json(200, {Message: 'Creacion de Usuario exitosa'});
             });
@@ -79,9 +79,9 @@ function users() {
 
     this.validate = function (data, res) {
         connection.acquire(function(err, con){
-            data.password = crypto.createHmac('sha256', data.password).digest().toString();
-            console.log(data.password === 'FrÛZŸó\r›-\\—»›\u001d\u001e¤½ñ&.jQ\u0010·ô=ïÄ¦ê\u0004Û');
-            con.query('select * from usuarios where  ?', [data], function (err, result) {
+            data.password = crypto.createHmac('sha256', data.password).digest('hex');
+            console.log(data.password);
+            con.query('select count(*) as login from usuarios where id_usuario = ? and password = ?', [data.id_usuario, data.password], function (err, result) {
                 con.release();
                 if(err){
 
@@ -121,7 +121,7 @@ function users() {
                     //         res.send(500, { message: er });
                     //     }
                     // });
-                    if(res.equals(""))
+                    if(res.login == 1)
                         res.json(500, {message: "error"});
                     else
                     res.json(200, {message: "success"});

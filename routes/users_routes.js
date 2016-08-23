@@ -18,12 +18,12 @@ module.exports = {
         });
 
         app.post('/usuarios', function (req, res) {
-            req.body.password = crypto.createHmac('sha256', req.body.password).digest().toString();
+            req.body.password = crypto.createHmac('sha256', req.body.password).digest('hex');
             users.create(req.body, res);
         });
 
         app.put('/usuarios', function (req, res) {
-            req.body.password = crypto.createHmac('sha256', req.body.password).digest();
+            req.body.password = crypto.createHmac('sha256', req.body.password).digest('hex');
             users.update(req.body, res);
         });
 
