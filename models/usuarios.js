@@ -108,7 +108,7 @@ function users() {
                                  newToken.save(function(error) {
                                      console.log(error);
                                      if(!error) {
-                                         res.json(200, {token: newToken.token});
+                                         res.json(200, {token: newToken.token, result});
                                      } else {
                                          res.send(500, { message: error });
                                      }
