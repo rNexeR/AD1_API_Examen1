@@ -6,7 +6,7 @@ module.exports = {
             groupsUsers.get(res);
         });
 
-        app.get('/gruposUsuarios/:idG-idU', function (req, res) {
+        app.get('/gruposUsuarios/:idG/:idU', function (req, res) {
             groupsUsers.getOne(req.params.idG, req.params.idU, res);
         });
 
@@ -18,7 +18,7 @@ module.exports = {
             groupsUsers.update(req.body, res);
         });
 
-        app.delete('/gruposUsuarios/:idG-idU', function (req, res) {
+        app.delete('/gruposUsuarios/:idG/:idU', function (req, res) {
             groupsUsers.delete(req.params.idG, req.params.idU, res);
         });
 

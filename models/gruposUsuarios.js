@@ -4,7 +4,7 @@ function groupsUsers() {
 
         this.get = function (res) {
         connection.acquire(function(err, con){
-            con.query('select g.nombre, g.id_grupo, u.username from grupos_usuarios gU inner join grupos g on gU.id_grupo = g.id_grupo inner join usuarios u on u.id_usuario = gU.id_usuario', function (err, result) {
+            con.query('select g.nombre, g.id_grupo, gU.id_usuario from grupos_usuarios gU inner join grupos g on gU.id_grupo = g.id_grupo inner join usuarios u on u.id_usuario = gU.id_usuario', function (err, result) {
                 con.release();
                 if(err)
                     res.json(500, {Error: err});

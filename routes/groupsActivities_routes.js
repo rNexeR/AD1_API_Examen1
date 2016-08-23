@@ -6,7 +6,7 @@ module.exports = {
             groupsActivities.get(res);
         });
 
-        app.get('/gruposActividades/:idG-idA', function (req, res) {
+        app.get('/gruposActividades/:idG/:idA', function (req, res) {
             groupsActivities.getOne(req.params.idG, req.params.idA, res);
         });
 
@@ -18,7 +18,7 @@ module.exports = {
             groupsActivities.update(req.body, res);
         });
 
-        app.delete('/gruposActividades/:idG-idA', function (req, res) {
+        app.delete('/gruposActividades/:idG/:idA', function (req, res) {
             groupsActivities.delete(req.params.idG, req.params.idA, res);
         });
 

@@ -80,7 +80,7 @@ function users() {
     this.validate = function (data, res) {
         connection.acquire(function(err, con){
             data.password = crypto.createHmac('sha256', data.password).digest().toString();
-            console.log(data.password);
+            console.log(data.password === 'FrÛZŸó\r›-\\—»›\u001d\u001e¤½ñ&.jQ\u0010·ô=ïÄ¦ê\u0004Û');
             con.query('select * from usuarios where  ?', [data], function (err, result) {
                 con.release();
                 if(err){
