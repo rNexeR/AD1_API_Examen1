@@ -92,7 +92,7 @@ function users() {
 
                      var user_name = data.id_usuario; // Name of users. 
   
-                     token.findOne({ user: user_name, date_created: today }, function(er, doc){
+                     token.findOne({date_created: today }, function(er, doc){
                          if(!er) {
                              console.log(doc);
                              if(doc){
