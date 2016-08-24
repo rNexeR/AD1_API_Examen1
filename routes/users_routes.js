@@ -19,53 +19,26 @@ module.exports = {
 
         app.get('/usuarios/:id', function (req, res) {
             tokenSent = req.headers.token;
-            if (!token)
-                res.send(400, 'Please send token');
-            else {
-
-                token.findOne({ token: tokenSent }, function (er, doc) {
-                    if (!er) {
-                        console.log(doc);
-                        if (doc) {
-                            //Model
-                            users.getOne(req.params.id, res);
-                        }
-                        else {
-                            res.send(401, 'Bad Token');
-                        }
-                    } else {
-                        res.send(500, { message: er });
-                    }
-                });
-
-
-            }
+            tokenValidation.validate(tokenSent, function(reply) {
+                if(reply!=200){
+                    res.send(reply[0], reply[1]);
+                }else {
+                    users.getOne(req.params.id, res);
+                }
+            });
         });
 
         app.post('/usuarios/where', function (req, res) {
 
             tokenSent = req.headers.token;
-            if (!token)
-                res.send(400, 'Please send token');
-            else {
 
-                token.findOne({ token: tokenSent }, function (er, doc) {
-                    if (!er) {
-                        console.log(doc);
-                        if (doc) {
-                            //Model
-                            users.where(req.body, res);
-                        }
-                        else {
-                            res.send(401, 'Bad Token');
-                        }
-                    } else {
-                        res.send(500, { message: er });
-                    }
-                });
-
-
-            }
+            tokenValidation.validate(tokenSent, function(reply) {
+                if(reply!=200){
+                    res.send(reply[0], reply[1]);
+                }else {
+                    users.where(req.body, res);
+                }
+            });
         });
 
         app.post('/usuarios', function (req, res) {
@@ -76,54 +49,28 @@ module.exports = {
         app.put('/usuarios', function (req, res) {
 
             tokenSent = req.headers.token;
-            if (!token)
-                res.send(400, 'Please send token');
-            else {
 
-                token.findOne({ token: tokenSent }, function (er, doc) {
-                    if (!er) {
-                        console.log(doc);
-                        if (doc) {
-                            //Model
-                            req.body.password = crypto.createHmac('sha256', req.body.password).digest('hex');
-                            users.update(req.body, res);
-                        }
-                        else {
-                            res.send(401, 'Bad Token');
-                        }
-                    } else {
-                        res.send(500, { message: er });
-                    }
-                });
-
-
-            }
+            tokenValidation.validate(tokenSent, function(reply) {
+                if(reply!=200){
+                    res.send(reply[0], reply[1]);
+                }else {
+                    req.body.password = crypto.createHmac('sha256', req.body.password).digest('hex');
+                    users.update(req.body, res);
+                }
+            });
         });
 
         app.delete('/usuarios/:id', function (req, res) {
             
             tokenSent = req.headers.token;
-            if (!token)
-                res.send(400, 'Please send token');
-            else {
 
-                token.findOne({ token: tokenSent }, function (er, doc) {
-                    if (!er) {
-                        console.log(doc);
-                        if (doc) {
-                            //Model
-                            users.delete(req.params.id, res);
-                        }
-                        else {
-                            res.send(401, 'Bad Token');
-                        }
-                    } else {
-                        res.send(500, { message: er });
-                    }
-                });
-
-
-            }
+          tokenValidation.validate(tokenSent, function(reply) {
+                if(reply!=200){
+                    res.send(reply[0], reply[1]);
+                }else {
+                    users.delete(req.params.id, res);
+                }
+            });
         });
 
         app.post('/login', function (req, res) {

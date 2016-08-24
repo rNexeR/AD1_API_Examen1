@@ -5,158 +5,79 @@ module.exports = {
     configure: function (app) {
         app.get('/actividades', function (req, res) {
             tokenSent = req.headers.token;
-            console.log('>>Token ' + tokenSent);
-            if (!token)
-                res.send(400, 'Please send token');
-            else {
 
-                token.findOne({ token: tokenSent }, function (er, doc) {
-                    if (!er) {
-                        console.log(doc);
-                        if (doc) {
-                            //Model
-                            activities.get(res);
-                        }
-                        else {
-                            res.send(401, 'Bad Token');
-                        }
-                    } else {
-                        res.send(500, { message: er });
-                    }
-                });
-
-
-            }
+            tokenValidation.validate(tokenSent, function(reply) {
+                if(reply!=200){
+                    res.send(reply[0], reply[1]);
+                }else {
+                    activities.get(res);
+                }
+            });
         });
 
         app.get('/actividades/:id', function (req, res) {
             
             tokenSent = req.headers.token;
-            if (!token)
-                res.send(400, 'Please send token');
-            else {
 
-                token.findOne({ token: tokenSent }, function (er, doc) {
-                    if (!er) {
-                        console.log(doc);
-                        if (doc) {
-                            //Model
-                            activities.getOne(req.params.id, res);
-                        }
-                        else {
-                            res.send(401, 'Bad Token');
-                        }
-                    } else {
-                        res.send(500, { message: er });
-                    }
-                });
-
-
-            }
+            tokenValidation.validate(tokenSent, function(reply) {
+                if(reply!=200){
+                    res.send(reply[0], reply[1]);
+                }else {
+                    activities.getOne(req.params.id, res);
+                }
+            });
         });
 
         app.post('/actividades', function (req, res) {
             
             tokenSent = req.headers.token;
-            if (!token)
-                res.send(400, 'Please send token');
-            else {
 
-                token.findOne({ token: tokenSent }, function (er, doc) {
-                    if (!er) {
-                        console.log(doc);
-                        if (doc) {
-                            //Model
-                            activities.create(req.body, res);
-                        }
-                        else {
-                            res.send(401, 'Bad Token');
-                        }
-                    } else {
-                        res.send(500, { message: er });
-                    }
-                });
-
-
-            }
+            tokenValidation.validate(tokenSent, function(reply) {
+                if(reply!=200){
+                    res.send(reply[0], reply[1]);
+                }else {
+                    activities.create(req.body, res);
+                }
+            });
         });
 
         app.put('/actividades', function (req, res) {
             
             tokenSent = req.headers.token;
-            if (!token)
-                res.send(400, 'Please send token');
-            else {
 
-                token.findOne({ token: tokenSent }, function (er, doc) {
-                    if (!er) {
-                        console.log(doc);
-                        if (doc) {
-                            //Model
-                            activities.update(req.body, res);
-                        }
-                        else {
-                            res.send(401, 'Bad Token');
-                        }
-                    } else {
-                        res.send(500, { message: er });
-                    }
-                });
-
-
-            }
+            tokenValidation.validate(tokenSent, function(reply) {
+                if(reply!=200){
+                    res.send(reply[0], reply[1]);
+                }else {
+                    activities.update(req.body, res);
+                }
+            });
         });
 
         app.delete('/actividades/:id', function (req, res) {
             
             tokenSent = req.headers.token;
-            if (!token)
-                res.send(400, 'Please send token');
-            else {
 
-                token.findOne({ token: tokenSent }, function (er, doc) {
-                    if (!er) {
-                        console.log(doc);
-                        if (doc) {
-                            //Model
-                            activities.delete(req.params.id, res);
-                        }
-                        else {
-                            res.send(401, 'Bad Token');
-                        }
-                    } else {
-                        res.send(500, { message: er });
-                    }
-                });
-
-
-            }
+            tokenValidation.validate(tokenSent, function(reply) {
+                if(reply!=200){
+                    res.send(reply[0], reply[1]);
+                }else {
+                    activities.delete(req.params.id, res);
+                }
+            });
         });
 
         app.post('/actividades/where', function (req, res) {
             
             tokenSent = req.headers.token;
-            if (!token)
-                res.send(400, 'Please send token');
-            else {
 
-                token.findOne({ token: tokenSent }, function (er, doc) {
-                    if (!er) {
-                        console.log(doc);
-                        if (doc) {
-                            //Model
-                            activities.where(req.body, res);
-                        }
-                        else {
-                            res.send(401, 'Bad Token');
-                        }
-                    } else {
-                        res.send(500, { message: er });
-                    }
-                });
-
-
-            }
+            tokenValidation.validate(tokenSent, function(reply) {
+                if(reply!=200){
+                    res.send(reply[0], reply[1]);
+                }else {
+                    activities.where(req.body, res);
+                }
+            });
         });
 
     }

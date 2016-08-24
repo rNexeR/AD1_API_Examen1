@@ -6,157 +6,79 @@ module.exports = {
         app.get('/grupos', function (req, res) {
             
             tokenSent = req.headers.token;
-            if (!token)
-                res.send(400, 'Please send token');
-            else {
 
-                token.findOne({ token: tokenSent }, function (er, doc) {
-                    if (!er) {
-                        console.log(doc);
-                        if (doc) {
-                            //Model
-                            groups.get(res);
-                        }
-                        else {
-                            res.send(401, 'Bad Token');
-                        }
-                    } else {
-                        res.send(500, { message: er });
-                    }
-                });
-
-
-            }
+            tokenValidation.validate(tokenSent, function(reply) {
+                if(reply!=200){
+                    res.send(reply[0], reply[1]);
+                }else {
+                    groups.get(res);
+                }
+            });
         });
 
         app.get('/grupos/:id', function (req, res) {
             
             tokenSent = req.headers.token;
-            if (!token)
-                res.send(400, 'Please send token');
-            else {
 
-                token.findOne({ token: tokenSent }, function (er, doc) {
-                    if (!er) {
-                        console.log(doc);
-                        if (doc) {
-                            //Model
-                            groups.getOne(req.params.id, res);
-                        }
-                        else {
-                            res.send(401, 'Bad Token');
-                        }
-                    } else {
-                        res.send(500, { message: er });
-                    }
-                });
-
-
-            }
+            tokenValidation.validate(tokenSent, function(reply) {
+                if(reply!=200){
+                    res.send(reply[0], reply[1]);
+                }else {
+                    groups.getOne(req.params.id, res);
+                }
+            });
         });
 
         app.post('/grupos', function (req, res) {
             
             tokenSent = req.headers.token;
-            if (!token)
-                res.send(400, 'Please send token');
-            else {
 
-                token.findOne({ token: tokenSent }, function (er, doc) {
-                    if (!er) {
-                        console.log(doc);
-                        if (doc) {
-                            //Model
-                            groups.create(req.body, res);
-                        }
-                        else {
-                            res.send(401, 'Bad Token');
-                        }
-                    } else {
-                        res.send(500, { message: er });
-                    }
-                });
-
-
-            }
+            tokenValidation.validate(tokenSent, function(reply) {
+                if(reply!=200){
+                    res.send(reply[0], reply[1]);
+                }else {
+                    groups.create(req.body, res);
+                }
+            });
         });
 
         app.put('/grupos', function (req, res) {
             
             tokenSent = req.headers.token;
-            if (!token)
-                res.send(400, 'Please send token');
-            else {
 
-                token.findOne({ token: tokenSent }, function (er, doc) {
-                    if (!er) {
-                        console.log(doc);
-                        if (doc) {
-                            //Model
-                            groups.update(req.body, res);
-                        }
-                        else {
-                            res.send(401, 'Bad Token');
-                        }
-                    } else {
-                        res.send(500, { message: er });
-                    }
-                });
-
-
-            }
+             tokenValidation.validate(tokenSent, function(reply) {
+                if(reply!=200){
+                    res.send(reply[0], reply[1]);
+                }else {
+                    groups.update(req.body, res);
+                }
+            });
         });
 
         app.delete('/grupos/:id', function (req, res) {
             
             tokenSent = req.headers.token;
-            if (!token)
-                res.send(400, 'Please send token');
-            else {
 
-                token.findOne({ token: tokenSent }, function (er, doc) {
-                    if (!er) {
-                        console.log(doc);
-                        if (doc) {
-                            //Model
-                            groups.delete(req.params.id, res);
-                        }
-                        else {
-                            res.send(401, 'Bad Token');
-                        }
-                    } else {
-                        res.send(500, { message: er });
-                    }
-                });
-
-
-            }
+            tokenValidation.validate(tokenSent, function(reply) {
+                if(reply!=200){
+                    res.send(reply[0], reply[1]);
+                }else {
+                    groups.delete(req.params.id, res);
+                }
+            });
         });
 
         app.post('/grupos/where', function (req, res) {
             
             tokenSent = req.headers.token;
-            if (!token)
-                res.send(400, 'Please send token');
-            else {
 
-                token.findOne({ token: tokenSent }, function (er, doc) {
-                    if (!er) {
-                        console.log(doc);
-                        if (doc) {
-                            //Model
-                            groups.where(req.body, res);
-                        }
-                        else {
-                            res.send(401, 'Bad Token');
-                        }
-                    } else {
-                        res.send(500, { message: er });
-                    }
-                });
-
-
-            }
+            tokenValidation.validate(tokenSent, function(reply) {
+                if(reply!=200){
+                    res.send(reply[0], reply[1]);
+                }else {
+                    groups.where(req.body, res);
+                }
+            });
         });
 
     }
