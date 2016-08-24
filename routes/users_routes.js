@@ -130,7 +130,6 @@ module.exports = {
         });
 
         app.post('/login', function (req, res) {
-            console.log(req.headers);
             users.validate(req.body, res);
         });
 

@@ -63,7 +63,7 @@ function evaluations() {
 
         this.where = function (data, res) {
         connection.acquire(function(err, con){
-            con.query('select * from evaluaciones where ?', data, function (err, result) {
+            con.query('select e.id_actividad, e.id_evaluacion, e.id_grupo, a.nombre as nombre_actividad, g.nombre as nombre_grupo, id_usuario, id_evaluador, calificacion from evaluaciones e inner join actividades a on e.id_actividad = a.id_actividad inner join grupos g on g.id_grupo = e.id_grupo where ?', data, function (err, result) {
                 con.release();
                 if(err)
                     res.json(500, {Error: err});

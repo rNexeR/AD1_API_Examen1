@@ -33,7 +33,7 @@ module.exports = {
         app.get('/gruposUsuarios/:idG/:idU', function (req, res) {
             
             tokenSent = req.headers.token;
-            if (!token)
+            if (!tokenSent)
                 res.send(401, 'Please send token');
             else {
 
