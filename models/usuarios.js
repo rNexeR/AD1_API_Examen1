@@ -95,9 +95,9 @@ function users() {
                      token.findOne({ user: user_name, date_created: today }, function(er, doc){
                          if(!er) {
                              console.log(doc);
-                             if(doc && doc.user == user_name && doc.date_created == today){
+                             if(doc){
                                  console.log("Session already active");
-                                 res.send(500, { message: 'Session already active' });
+                                 res.send(500, { message: doc.token });
                              }
                              else {
                                  var newToken = new token({
