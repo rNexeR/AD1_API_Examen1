@@ -4,13 +4,17 @@ function tokenValidation() {
     this.validate = function (tokenSent, callback) {
         var reply;
         console.log('Me estoy llamando');
-        if (!tokenSent)
+        if (!tokenSent){
             reply = [404, 'Please send Token'];
+            if (typeof callback === 'function') {
+            callback(reply);
+            }
+        }
         else {
             token.findOne({ token: tokenSent }, function (er, doc) {
                 if (!er) {
                     if (doc != '') {
-                        rreply = 200;
+                        reply = 200;
                     }
                     else {
                         reply = [401, 'Bad Token'];
@@ -18,11 +22,10 @@ function tokenValidation() {
                 } else {
                     reply = [500, { message: er }];
                 }
+                if (typeof callback === 'function') {
+                    callback(reply);
+                }
             });
-        }
-
-        if (typeof callback === 'function' && reply) {
-            callback(reply);
         }
     }
 }
