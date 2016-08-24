@@ -9,7 +9,7 @@ module.exports = {
         app.get('/usuarios', function (req, res) {
 
             tokenSent = req.headers.token;
-            var reply = tokenValidation.validate(tokenSent, function() {
+            tokenValidation.validate(tokenSent, function(reply) {
 
                 if(reply !== 200) {
                     res.send(reply[0], reply[1]);
