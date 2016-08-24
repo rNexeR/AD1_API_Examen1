@@ -95,7 +95,7 @@ function users() {
                      token.findOne({token: tokenToSend }, function(er, doc){
                          if(!er) {
                              console.log(doc);
-                             if(doc){
+                             if(doc != "" ){
                                  console.log("Session already active");
                                  res.send(200, {token: tokenToSend, result});
                              }
