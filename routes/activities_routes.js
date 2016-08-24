@@ -5,6 +5,7 @@ module.exports = {
     configure: function (app) {
         app.get('/actividades', function (req, res) {
             tokenSent = req.headers.token;
+            console.log('>>Token ' + tokenSent);
             if (!token)
                 res.send(401, 'Please send token');
             else {

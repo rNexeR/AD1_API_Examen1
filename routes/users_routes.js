@@ -15,7 +15,7 @@ module.exports = {
                 token.findOne({ token: tokenSent }, function (er, doc) {
                     if (!er) {
                         console.log(doc);
-                        if (doc && ) {
+                        if (doc) {
                             //Model
                             users.get(res);
                         }
