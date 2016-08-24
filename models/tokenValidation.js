@@ -1,27 +1,23 @@
 var token = require('../models/tokens').Tokens;
 
 function tokenValidation() {
-    this.validate = function (tokenSent, next) {
+    this.validate = function (tokenSent) {
         console.log('Me estoy llamando');
         if (!tokenSent)
-            next = false;
+            return [404, 'Please send Token'];
         else {
-
             token.findOne({ token: tokenSent }, function (er, doc) {
                 if (!er) {
-                    console.log(doc);
                     if (doc) {
-                        next = true;
+                        return 200;
                     }
                     else {
-                        next = false;
+                        return [401, 'Bad Token'];
                     }
                 } else {
-                    next = false;
+                    return [500, { message: er }];
                 }
             });
-
-
         }
     }
 }

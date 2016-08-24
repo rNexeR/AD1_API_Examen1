@@ -8,26 +8,13 @@ module.exports = {
     configure: function (app) {
         app.get('/usuarios', function (req, res) {
             tokenSent = req.headers.token;
-            if (!token)
-                res.send(401, 'Please send token');
+            var reply = tokenValidation.validate(tokenSent);
+
+            if(reply !== 200) {
+                res.send(reply[0], reply[1]);
+            }
             else {
-
-                token.findOne({ token: tokenSent }, function (er, doc) {
-                    if (!er) {
-                        console.log(doc);
-                        if (doc) {
-                            //Model
-                            users.get(res);
-                        }
-                        else {
-                            res.send(401, 'Bad Token');
-                        }
-                    } else {
-                        res.send(500, { message: er });
-                    }
-                });
-
-
+                users.get(res);
             }
         });
 
