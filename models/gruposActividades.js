@@ -4,7 +4,8 @@ function groupsActivities() {
 
         this.get = function (res) {
         connection.acquire(function(err, con){
-            con.query('select g.nombre as nombre_grupo, g.id_grupo, a.nombre as nombre_actividad, a.id_actividad from grupos_actividades gA inner join grupos g on gA.id_grupo = g.id_grupo inner join actividades a on a.id_actividad = gA.id_actividad', function (err, result) {
+            //select g.nombre as nombre_grupo, g.id_grupo, a.nombre as nombre_actividad, a.id_actividad from grupos_actividades gA inner join grupos g on gA.id_grupo = g.id_grupo inner join actividades a on a.id_actividad = gA.id_actividad
+            con.query('select g.nombre as nombre_grupo, u.id_usuario, g.id_grupo, a.nombre as nombre_actividad, a.id_actividad from grupos_actividades gA inner join grupos g on gA.id_grupo = g.id_grupo inner join actividades a on a.id_actividad = gA.id_actividad inner join  usuarios u on u.id_usuario = g.id_usuario', function (err, result) {
                 con.release();
                 if(err)
                     res.json(500, {Error: err});
@@ -65,7 +66,7 @@ function groupsActivities() {
 
     this.where = function (data, res) {
         connection.acquire(function(err, con){
-            con.query('select * from grupos_actividades where ?', data, function (err, result) {
+            con.query('select g.nombre as nombre_grupo, u.id_usuario, g.id_grupo, a.nombre as nombre_actividad, a.id_actividad from grupos_actividades gA inner join grupos g on gA.id_grupo = g.id_grupo inner join actividades a on a.id_actividad = gA.id_actividad inner join  usuarios u on u.id_usuario = g.id_usuario where ?', data, function (err, result) {
                 con.release();
                 if(err)
                     res.json(500, {Error: err});
