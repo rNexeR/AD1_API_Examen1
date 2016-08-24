@@ -15,6 +15,8 @@ var express = require('express')
   , mongoose = require('mongoose')
   , cors = require('cors');
 
+let test = 1;
+
 var app = express();
 app.use(bodyparser.urlencoded({extended: true}));
 app.use(bodyparser.json());

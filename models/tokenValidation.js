@@ -1,14 +1,14 @@
 var token = require('../models/tokens').Tokens;
 
 function tokenValidation() {
-    this.validate = function (tokenSent) {
+    this.validate = function (tokenSent, callback) {
         console.log('Me estoy llamando');
         if (!tokenSent)
             return [404, 'Please send Token'];
         else {
             token.findOne({ token: tokenSent }, function (er, doc) {
                 if (!er) {
-                    if (doc) {
+                    if (doc != '') {
                         return 200;
                     }
                     else {
@@ -18,6 +18,10 @@ function tokenValidation() {
                     return [500, { message: er }];
                 }
             });
+        }
+
+        if (typeof callback === 'function') {
+            callback();
         }
     }
 }

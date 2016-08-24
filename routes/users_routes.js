@@ -7,15 +7,17 @@ var tokenValidation = require('../models/tokenValidation');
 module.exports = {
     configure: function (app) {
         app.get('/usuarios', function (req, res) {
-            tokenSent = req.headers.token;
-            var reply = tokenValidation.validate(tokenSent);
 
-            if(reply !== 200) {
-                res.send(reply[0], reply[1]);
-            }
-            else {
-                users.get(res);
-            }
+            tokenSent = req.headers.token;
+            var reply = tokenValidation.validate(tokenSent, function() {
+
+                if(reply !== 200) {
+                    res.send(reply[0], reply[1]);
+                }
+                else {
+                    users.get(res);
+                }
+            });
         });
 
         app.get('/usuarios/:id', function (req, res) {
