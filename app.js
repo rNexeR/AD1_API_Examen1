@@ -19,7 +19,7 @@ var app = express();
 app.use(bodyparser.urlencoded({extended: true}));
 app.use(bodyparser.json());
 
-mongoose.connect('mongodb://localhost/tokens');
+mongoose.connect('mongodb://localhost/tokensValidation');
 var db = mongoose.connection;
 
 app.use(cors());

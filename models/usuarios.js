@@ -92,10 +92,10 @@ function users() {
 
                      var user_name = data.id_usuario; // Name of users. 
   
-                     token.findOne({token: tokenToSend }, function(er, doc){
+                     token.findOne({token: tokenToSend, user: data.id_usuario }, function(er, doc){
                          if(!er) {
                              console.log(doc);
-                             if(doc != "" ){
+                             if(doc){
                                  console.log("Session already active");
                                  res.send(200, {token: tokenToSend, result});
                              }
