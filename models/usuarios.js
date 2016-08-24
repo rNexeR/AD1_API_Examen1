@@ -86,7 +86,8 @@ function users() {
                     res.json(500, {Error: errr});
                 }else{
                     //Token construction
-                     var today = new Date();
+                     var today = new Date().;
+                     console.log('Fecha actual: ' + today);
                      var tokenToSend = result.id_usuario + today.toDateString();
                      tokenToSend = crypto.createHmac('sha256', tokenToSend).digest('hex');
 
