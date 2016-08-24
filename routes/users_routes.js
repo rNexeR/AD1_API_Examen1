@@ -7,17 +7,26 @@ var tokenValidation = require('../models/tokenValidation');
 module.exports = {
     configure: function (app) {
         app.get('/usuarios', function (req, res) {
-
             tokenSent = req.headers.token;
-            tokenValidation.validate(tokenSent, function(reply) {
+            if (!tokenSent)
+                res.send(401, 'Please send token');
+            else {
 
-                if(reply !== 200) {
-                    res.send(reply[0], reply[1]);
-                }
-                else {
-                    users.get(res);
-                }
-            });
+                tokenSent.findOne({ token: tokenSent }, function (er, doc) {
+                    if (!er) {
+                        console.log(doc);
+                        if (doc) {
+                            //Model
+                            users.get(res);
+                        }
+                        else {
+                            res.send(401, 'Bad Token');
+                        }
+                    } else {
+                        res.send(500, { message: er });
+                    }
+                });
+            }
         });
 
         app.get('/usuarios/:id', function (req, res) {
@@ -130,6 +139,7 @@ module.exports = {
         });
 
         app.post('/login', function (req, res) {
+            console.log(req.headers);
             users.validate(req.body, res);
         });
 

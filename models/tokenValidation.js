@@ -21,7 +21,7 @@ function tokenValidation() {
             });
         }
 
-        if (typeof callback === 'function') {
+        if (typeof callback === 'function' && reply) {
             callback(reply);
         }
     }
