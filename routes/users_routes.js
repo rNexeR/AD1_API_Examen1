@@ -9,7 +9,7 @@ module.exports = {
         app.get('/usuarios', function (req, res) {
             tokenSent = req.headers.token;
             if (!tokenSent)
-                res.send(401, 'Please send token');
+                res.send(400, 'Please send token');
             else {
 
                 tokenSent.findOne({ token: tokenSent }, function (er, doc) {
@@ -32,7 +32,7 @@ module.exports = {
         app.get('/usuarios/:id', function (req, res) {
             tokenSent = req.headers.token;
             if (!token)
-                res.send(401, 'Please send token');
+                res.send(400, 'Please send token');
             else {
 
                 token.findOne({ token: tokenSent }, function (er, doc) {
@@ -58,7 +58,7 @@ module.exports = {
 
             tokenSent = req.headers.token;
             if (!token)
-                res.send(401, 'Please send token');
+                res.send(400, 'Please send token');
             else {
 
                 token.findOne({ token: tokenSent }, function (er, doc) {
@@ -89,7 +89,7 @@ module.exports = {
 
             tokenSent = req.headers.token;
             if (!token)
-                res.send(401, 'Please send token');
+                res.send(400, 'Please send token');
             else {
 
                 token.findOne({ token: tokenSent }, function (er, doc) {
@@ -116,7 +116,7 @@ module.exports = {
             
             tokenSent = req.headers.token;
             if (!token)
-                res.send(401, 'Please send token');
+                res.send(400, 'Please send token');
             else {
 
                 token.findOne({ token: tokenSent }, function (er, doc) {
