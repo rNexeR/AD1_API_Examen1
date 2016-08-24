@@ -16,7 +16,6 @@ module.exports = {
         });
 
         app.get('/actividades/:id', function (req, res) {
-            
             tokenSent = req.headers.token;
 
             tokenValidation.validate(tokenSent, function(reply) {
